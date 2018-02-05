@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YourFilm_Example' do
+  pod 'YourFilm', :path => '../'
+
+  target 'YourFilm_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase' , '~> 2.1.4'
+  end
+end
