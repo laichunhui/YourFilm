@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SYKit
 
 struct RoleConfigs {
     struct HUD {
@@ -83,8 +84,8 @@ open class HUD: RoleplayAble {
         
         switch self.content {
         case .label(let text):
-            let textSize = text?.sy_size(titleFont: RoleConfigs.HUD.labelTextFont, maxWidth: UIScreen.main.bounds.width - 50) ?? CGSize.zero
-            face.frame.size = CGSize(width: textSize.width + 18, height: textSize.height + 16)
+            let textSize = text?.sy_size(titleFont: RoleConfigs.HUD.labelTextFont, maxWidth: UIScreen.sy_width - 50) ?? CGSize.zero
+            face.sy_size = CGSize(width: textSize.width + 18, height: textSize.height + 16)
             
             let label = UILabel().then {
                 $0.textAlignment = .center
@@ -303,9 +304,7 @@ open class AlertView: UIView {
         }
         
         let totalHeight = lineY
-        layer.cornerRadius = 3
-        clipsToBounds = true
-
+        sy_cornerRadius(3)
         frame = CGRect(x: 0, y: 0, width: width, height: totalHeight)
     }
     

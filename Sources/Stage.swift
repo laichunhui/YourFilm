@@ -59,6 +59,29 @@ class Stage: UIVisualEffectView {
         
         frame.size = character.face.bounds.size
         contentView.addSubview(character.face)
+//        switch character.type {
+//        case .hud:
+//            guard let hud = character as? HUD else {
+//                fatalError("you maybe set a custom role to hud type")
+//            }
+//
+//            frame.size = hud.face.bounds.size
+//            contentView.addSubview(hud.face)
+//
+//        case .custom:
+//            guard let customView = character as? UIView else {
+//                fatalError("custom role must be UIView or it's subClass")
+//            }
+//
+//            frame.size = customView.bounds.size
+//            contentView.addSubview(customView.face)
+//
+//        case .alert:
+//            contentView.addSubview(character.face)
+//
+//        default:
+//            break
+//        }
     }
     
 }
