@@ -18,7 +18,6 @@ public enum RoleType: String {
     case custom
 }
 
-
 public protocol RoleplayAble {
     
     var type: RoleType { get }
