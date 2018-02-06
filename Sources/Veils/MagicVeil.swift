@@ -6,7 +6,7 @@
 //  Copyright © 2017年 qjzh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @IBDesignable
 public class MagicVeil: UIView {

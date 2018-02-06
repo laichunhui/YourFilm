@@ -6,7 +6,7 @@
 //  Copyright © 2016年 qjzh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /** 
     舞台：提供给各类演员的表演空间

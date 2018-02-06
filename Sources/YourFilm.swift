@@ -6,7 +6,7 @@
 //  Copyright © 2016年 qjzh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @discardableResult
 public func show(

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 qjzh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 open class Director {
     static let `default` = Director()
