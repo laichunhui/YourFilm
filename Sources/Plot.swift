@@ -25,10 +25,18 @@ enum FilmAnimation {
     }
 }
 
+
+public enum StagePosition {
+    case center
+    case bottom
+}
+
 public struct Plot {
     public var showTimeDuration: TimeInterval = 2.0
     public var appearAnimation: CAAnimation?
     public var disappearAnimation: CAAnimation?
+    
+    public var stagePisition: StagePosition = .center
     
     public static let `default`: Plot = {
         var plot = Plot()

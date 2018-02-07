@@ -45,7 +45,14 @@ class Space: UIView {
     internal override func layoutSubviews() {
         super.layoutSubviews()
         
-        stage.center = center
+        switch stage.position {
+        case .bottom:
+            stage.center.x = center.x
+            stage.center.y = UIScreen.main.bounds.size.height - stage.frame.height / 2 - 10
+        default:
+            stage.center = center
+        }
+        
         backgroundView.frame = bounds
     }
 

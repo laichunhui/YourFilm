@@ -18,7 +18,7 @@ open class Director {
         _ character: RoleplayAble,
         plot: Plot = .default,
         scenery: Scenery = .default,
-        inView view: UIView? = UIApplication.shared.keyWindow) -> Film {
+        inView view: UIView? = nil) -> Film {
         
         if let film = currentFilm {
             clean(film)
@@ -27,11 +27,11 @@ open class Director {
         let film = Film(character: character, plot: plot, scenery: scenery)
         currentFilm = film
        
-        let view: UIView = view ?? UIApplication.shared.keyWindow!
-                
-        film.space.frame = view.bounds
-        view.addSubview(film.space)
-        film.opening()
+        if let view: UIView = view ?? UIApplication.shared.keyWindow {
+            film.space.frame = view.bounds
+            view.addSubview(film.space)
+            film.opening()
+        }
         
         return film
     }
@@ -40,5 +40,4 @@ open class Director {
         film.space.clearUp()
         currentFilm = nil
     }
-    
 }

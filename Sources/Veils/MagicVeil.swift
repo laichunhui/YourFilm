@@ -75,7 +75,7 @@ public class MagicVeil: UIView {
     /**
      Progress bar colors. You can set many colors in `colors` property, and it makes gradation color in `colors`.
      */
-    open var colors: [UIColor] = [UIColor(syHexValue: 0x4BAEB), UIColor(syHexValue: 0x54BA24)] {
+    open var colors: [UIColor] = [UIColor(yfHexValue: 0x4BAEB), UIColor(yfHexValue: 0x54BA24)] {
         didSet {
             update(colors: colors)
         }

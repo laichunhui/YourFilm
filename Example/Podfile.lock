@@ -1,0 +1,19 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - YourFilm (0.1.3)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase (~> 2.1.4)
+  - YourFilm (~> 0.1.3)
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  YourFilm: 9d646f34635fa2d0ea4e5487c38c5244a0c06d87
+
+PODFILE CHECKSUM: 2977d89ddf510521b8a3c3b2bd8173f65467c715
+
+COCOAPODS: 1.4.0

@@ -24,10 +24,6 @@ public protocol RoleplayAble {
     
     var face: UIView { get }
     
-    /**
-     Current progress value. (0.0 - 1.0)
-     */
- //   var progress: Double { set get }
 }
 
 public protocol FilmProgressDelegate {
@@ -41,12 +37,4 @@ extension UIView: RoleplayAble {
     
     public var face: UIView { return self }
     
-//    public var progress: Double {
-//        get {
-//            return self.progress
-//        }
-//        set(newVlue) {
-//            self.progress = newVlue
-//        }}
 }
-

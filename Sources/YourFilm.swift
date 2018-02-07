@@ -13,7 +13,7 @@ public func show(
     _ character: RoleplayAble,
     plot: Plot = .default,
     scenery: Scenery = .default,
-    inView view: UIView? = UIApplication.shared.keyWindow
+    inView view: UIView? = nil
     )
     -> Film
 {
@@ -25,8 +25,34 @@ public func show(
     )
 }
 
+
 @discardableResult
-public func showActivityIndicator(inView view: UIView? = UIApplication.shared.keyWindow
+public func showAlertView(_ alert: AlertView)
+    -> Film
+{
+    let character = alert
+    var plot = Plot.default
+    plot.showTimeDuration = TimeInterval(Int.max)
+    switch alert.preferredStyle {
+    case .actionSheet:
+        plot.stagePisition = .bottom
+    default:
+        plot.stagePisition = .center
+    }
+    
+    let scenery: Scenery = .default
+    
+    return Director.default.make(
+        character,
+        plot: plot,
+        scenery: scenery,
+        inView: nil
+    )
+}
+
+
+@discardableResult
+public func showActivityIndicator(inView view: UIView? = nil
     )
     -> Film
 {

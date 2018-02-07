@@ -17,6 +17,7 @@ public protocol StageAble {
 }
 
 class Stage: UIVisualEffectView {
+    var position: StagePosition = .center
     
     internal init() {
         super.init(effect: UIBlurEffect(style: .light))
@@ -51,7 +52,7 @@ class Stage: UIVisualEffectView {
         addMotionEffect(group)
     }
     
-    public func display(_ character: RoleplayAble) {
+    func display(_ character: RoleplayAble) {
         //clearContents()
         self.contentView.subviews.forEach {
             $0.removeFromSuperview()
