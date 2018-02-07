@@ -51,9 +51,9 @@ extension UIColor {
     }
 }
 
-public protocol SYThen {}
+protocol SYThen {}
 
-public extension SYThen where Self: Any {
+extension SYThen where Self: Any {
     /// Makes it available to set properties with closures just after initializing.
     ///
     ///     let label = UILabel().then {
@@ -68,7 +68,7 @@ public extension SYThen where Self: Any {
     }
 }
 
-public extension SYThen where Self: AnyObject {
+extension SYThen where Self: AnyObject {
     /// Makes it available to set properties with closures just after initializing.
     ///
     ///     let label = UILabel().then {
