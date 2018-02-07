@@ -61,7 +61,7 @@ extension SYThen where Self: Any {
     ///         $0.textColor = UIColor.blackColor()
     ///         $0.text = "Hello, World!"
     ///     }
-    public func then( block: (inout Self) -> Void) -> Self {
+     func then( block: (inout Self) -> Void) -> Self {
         var copy = self
         block(&copy)
         return copy
@@ -76,7 +76,7 @@ extension SYThen where Self: AnyObject {
     ///         $0.textColor = UIColor.blackColor()
     ///         $0.text = "Hello, World!"
     ///     }
-    public func then( block: (Self) -> Void) -> Self {
+    func then( block: (Self) -> Void) -> Self {
         block(self)
         return self
     }
