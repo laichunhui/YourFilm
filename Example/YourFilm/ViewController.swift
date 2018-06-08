@@ -25,7 +25,9 @@ class ViewController: UIViewController {
         
         alertView.addAction(action)
         
-        YourFilm.showAlertView(alertView)
+        YourFilm.show(alertView)
+        
+        //YourFilm.showActivityIndicator(inView: view)
     }
 }
 
