@@ -24,6 +24,41 @@ public func show(
         inView: view
     )
 }
+@discardableResult
+public func pin(
+    _ character: RoleplayAble,
+    scenery: Scenery = .default,
+    inView view: UIView? = nil
+    )
+    -> Film
+{
+    var plot = Plot.default
+    plot.showTimeDuration = TimeInterval(Int.max)
+    return Director.default.make(
+        character,
+        plot: plot,
+        scenery: scenery,
+        inView: view
+    )
+}
+
+@discardableResult
+public func flash(
+    _ character: RoleplayAble,
+    scenery: Scenery = .default,
+    inView view: UIView? = nil
+    )
+    -> Film
+{
+    var plot = Plot.default
+    plot.showTimeDuration = TimeInterval(Int.max)
+    return Director.default.make(
+        character,
+        plot: plot,
+        scenery: scenery,
+        inView: view
+    )
+}
 
 
 @discardableResult

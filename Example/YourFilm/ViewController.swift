@@ -7,27 +7,116 @@
 //
 
 import UIKit
-import YourFilm
+import SYKit
+
+typealias MenuAction = (title: String, action: Selector)
 
 class ViewController: UIViewController {
+    
+    var datasource: [MenuAction] {
+        return [
+            (title: "showHUD", action: #selector(ViewController.showHUD)),
+            (title: "showAlert", action: #selector(ViewController.showAlert))
+        ]
+    }
+    
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView.init(frame: CGRect.zero, style: .plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        return tableView
+    }()
+    
+    
+    func setupUI() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuCell")
+        view.addSubview(tableView)
+        
+        tableView.frame = view.bounds
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupUI()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let alertView = AlertView.init(title: "lsjof", message: "k都弄得佛带动偶发方法", preferredStyle: .alert)
-        let action = AlertAction.init(title: "k南方付款") { _ in
-            print("ddfdfdfdfgg")
-            YourFilm.curtainCall()
+    @objc func showHUD() {
+        performSegue(withIdentifier: "showHud", sender: nil)
+    }
+    
+    @objc func showAlert() {
+        let alert = AlertView.init(title: "慢慢", message: "滚滚滚", preferredStyle: .actionSheet)
+
+        alert.addTextField { (field) in
+            field.placeholder = "请输入来来来"
+            field.borderStyle = .roundedRect
         }
         
-        alertView.addAction(action)
+        alert.addTextField { (field) in
+            field.placeholder = "请就哦啊额偶奇偶金"
+            field.borderStyle = .roundedRect
+        }
         
-        YourFilm.show(alertView)
+        let action = AlertAction.init(title: "确定", handler: { _ in
+            print("\(alert.textFields?.first?.text ?? "")")
+            
+    
+        })
+        alert.addAction(action)
         
-        //YourFilm.showActivityIndicator(inView: view)
+        let action1 = AlertAction.init(title: "取消", handler: { _ in
+            print("cancel()")
+            YourFilm_Example.curtainCall()
+        })
+        
+        alert.addAction(action1)
+        
+        let destructive = AlertAction.init(title: "destructive", handler: { _ in
+            print("destructive")
+        })
+
+        alert.addAction(destructive)
+        YourFilm_Example.pin(alert)
     }
 }
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if  let model = datasource.sy_Element(at: indexPath.row) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
+            cell.textLabel?.text = model.title
+            
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let model = datasource.sy_Element(at: indexPath.row) {
+            
+            perform(model.action)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
 

@@ -9,8 +9,9 @@
 import UIKit
 
 public enum StageEffectStyle {
-    case clean
+    case blur
     case dim
+    case color(_: UIColor)
 }
 
 public enum SpaceEffectStyle {
@@ -21,17 +22,19 @@ public enum SpaceEffectStyle {
 }
 
 /** 布景 */
-public class Scenery {
+public struct Scenery {
 
-    public var spaceEffect: SpaceEffectStyle = .color(UIColor(white: 0, alpha: 0.6))
+    public var spaceEffect: SpaceEffectStyle = .clean
     
-    //    init(mask: MaskType) {
-    //        self.mask = mask
-    //    }
+    public var stageEffect: StageEffectStyle = .blur
+
+    init(spaceEffect: SpaceEffectStyle = .clean, stageEffect: StageEffectStyle = .blur) {
+        self.spaceEffect = spaceEffect
+        self.stageEffect = stageEffect
+    }
     
     public static let `default`: Scenery = {
         let scenery = Scenery()
-        scenery.spaceEffect = .dim
         return scenery
     }()
 }

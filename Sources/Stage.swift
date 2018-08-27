@@ -30,14 +30,10 @@ class Stage: UIVisualEffectView {
     }
     
     fileprivate func commonInit() {
-        backgroundColor = UIColor(white: 0.8, alpha: 0.36)
         layer.cornerRadius = 9.0
         layer.masksToBounds = true
-        
-        //contentView.addSubview(self.content)
-        
+       
         let offset = 20.0
-        
         let motionEffectsX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
         motionEffectsX.maximumRelativeValue = offset
         motionEffectsX.minimumRelativeValue = -offset
@@ -52,10 +48,19 @@ class Stage: UIVisualEffectView {
         addMotionEffect(group)
     }
     
-    func display(_ character: RoleplayAble) {
+    func display(_ character: RoleplayAble, effect: StageEffectStyle) {
         //clearContents()
         self.contentView.subviews.forEach {
             $0.removeFromSuperview()
+        }
+        
+        switch effect {
+        case .blur:
+            backgroundColor = UIColor(white: 0.8, alpha: 0.36)
+        case .color(let color):
+            backgroundColor = color
+        case .dim:
+             backgroundColor = UIColor(white: 0.1, alpha: 0.56)
         }
         
         frame.size = character.face.bounds.size

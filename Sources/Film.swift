@@ -26,19 +26,19 @@ open class Film: NSObject {
    
     open var scenery: Scenery
     
-    let space = Space()
+    let space: Space
     
     public init(character: RoleplayAble, plot: Plot, scenery: Scenery) {
         
         self.character = character
         self.plot = plot
         self.scenery = scenery
+        self.space = Space(effect: scenery.spaceEffect)
     }
     
     open func opening() {
-        
         space.stage.position = plot.stagePisition
-        space.stage.display(character)
+        space.stage.display(character, effect: scenery.stageEffect)
         delegate?.filmDidStart(self)
         
         if let appearAnim = plot.appearAnimation {

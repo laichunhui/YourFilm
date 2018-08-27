@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias FilmAction = (Bool) -> Void
+
 enum FilmAnimation {
     case showTimeDuration(_ : TimeInterval)
     case appearAnimation(_ : CAAnimation)
@@ -41,18 +43,13 @@ public struct Plot {
     public static let `default`: Plot = {
         var plot = Plot()
         plot.showTimeDuration = 2.0
-    
-        let appear = CABasicAnimation(keyPath: "alpha")
-        appear.fromValue = 0.0
-        appear.toValue = 1.0
-        appear.duration = 0.2
         
+        let appear = CATransition()
+        appear.type = kCATransitionReveal
         plot.appearAnimation = appear
         
-        let disappear = CABasicAnimation(keyPath: "alpha")
-        disappear.fromValue = 1.0
-        disappear.toValue = 0.0
-        appear.duration = 0.2
+        let disappear = CATransition()
+        disappear.type = kCATransitionFade
         
         plot.disappearAnimation = disappear
         

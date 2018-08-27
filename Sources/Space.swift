@@ -15,28 +15,36 @@ public class ProjectionRoom {
 class Space: UIView {
     
     var stage: Stage
+    var effect: SpaceEffectStyle
     
-    init(stage: Stage = Stage()) {
+    init(stage: Stage = Stage(), effect: SpaceEffectStyle) {
         self.stage = stage
+        self.effect = effect
         super.init(frame: CGRect.zero)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        stage = Stage()
+        self.stage = Stage()
+        self.effect = .clean
         super.init(coder: aDecoder)
         commonInit()
     }
     
     fileprivate let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(white:0.0, alpha:0.25)
-        view.alpha = 0.0
         return view
     }()
     
     fileprivate func commonInit() {
-        backgroundColor = UIColor.clear
+        switch effect {
+        case .dim:
+            backgroundView.backgroundColor = UIColor(white:0.0, alpha:0.25)
+        case .color(let color):
+            backgroundView.backgroundColor = color
+        default:
+            backgroundColor = UIColor.clear
+        }
         
         addSubview(backgroundView)
         addSubview(stage)
