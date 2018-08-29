@@ -13,7 +13,6 @@
 		04CAACEA212E9B72000DE8CE /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACDE212E9B72000DE8CE /* Plot.swift */; };
 		04CAACEB212E9B72000DE8CE /* UIKit+YourFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACDF212E9B72000DE8CE /* UIKit+YourFilm.swift */; };
 		04CAACEC212E9B72000DE8CE /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE0212E9B72000DE8CE /* Stage.swift */; };
-		04CAACED212E9B72000DE8CE /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE1212E9B72000DE8CE /* Capacity.swift */; };
 		04CAACEE212E9B72000DE8CE /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE2212E9B72000DE8CE /* Actor.swift */; };
 		04CAACEF212E9B72000DE8CE /* YourFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE3212E9B72000DE8CE /* YourFilm.swift */; };
 		04CAACF0212E9B72000DE8CE /* MagicVeil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE5212E9B72000DE8CE /* MagicVeil.swift */; };
@@ -37,7 +36,6 @@
 		04CAACDE212E9B72000DE8CE /* Plot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		04CAACDF212E9B72000DE8CE /* UIKit+YourFilm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+YourFilm.swift"; sourceTree = "<group>"; };
 		04CAACE0212E9B72000DE8CE /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
-		04CAACE1212E9B72000DE8CE /* Capacity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
 		04CAACE2212E9B72000DE8CE /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		04CAACE3212E9B72000DE8CE /* YourFilm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourFilm.swift; sourceTree = "<group>"; };
 		04CAACE5212E9B72000DE8CE /* MagicVeil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicVeil.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				04CAACDE212E9B72000DE8CE /* Plot.swift */,
 				04CAACDF212E9B72000DE8CE /* UIKit+YourFilm.swift */,
 				04CAACE0212E9B72000DE8CE /* Stage.swift */,
-				04CAACE1212E9B72000DE8CE /* Capacity.swift */,
 				04CAACE2212E9B72000DE8CE /* Actor.swift */,
 				04CAACE3212E9B72000DE8CE /* YourFilm.swift */,
 				04CAACE6212E9B72000DE8CE /* Director.swift */,
@@ -236,7 +233,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -327,7 +324,6 @@
 			files = (
 				04CAACF1212E9B72000DE8CE /* Director.swift in Sources */,
 				04CAACF8212FAA4E000DE8CE /* HUDExhibitionViewController.swift in Sources */,
-				04CAACED212E9B72000DE8CE /* Capacity.swift in Sources */,
 				04CAACE9212E9B72000DE8CE /* Scenery.swift in Sources */,
 				04CAACEF212E9B72000DE8CE /* YourFilm.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
@@ -378,12 +374,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -431,12 +429,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

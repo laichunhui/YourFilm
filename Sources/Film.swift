@@ -20,7 +20,7 @@ open class Film: NSObject {
     fileprivate var endTimer: Timer?
         
     // MARK: Properties
-    open var character: RoleplayAble
+    open var character: ActorType
     
     open var plot: Plot
    
@@ -28,7 +28,7 @@ open class Film: NSObject {
     
     let space: Space
     
-    public init(character: RoleplayAble, plot: Plot, scenery: Scenery) {
+    public init(character: ActorType, plot: Plot, scenery: Scenery) {
         
         self.character = character
         self.plot = plot

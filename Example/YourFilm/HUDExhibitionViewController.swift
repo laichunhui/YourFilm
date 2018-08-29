@@ -112,7 +112,9 @@ class HUDExhibitionViewController: UIViewController {
         
         var scenery = Scenery()
         scenery.spaceEffect = .color(faceBgColorSelector.color)
-        scenery.stageEffect = .color(stageBgColorSelector.color)
-        YourFilm_Example.show(character, scenery: scenery, inView: view)
+     //   scenery.stageEffect = .color(stageBgColorSelector.color)
+        
+        scenery.stageEffect = .dim
+        YourFilm_Example.show(character, scenery: scenery, onView: view)
     }
 }

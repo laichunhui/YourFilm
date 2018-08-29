@@ -10,10 +10,10 @@ import UIKit
 
 @discardableResult
 public func show(
-    _ character: RoleplayAble,
+    _ character: ActorType,
     plot: Plot = .default,
     scenery: Scenery = .default,
-    inView view: UIView? = nil
+    onView view: UIView? = nil
     )
     -> Film
 {
@@ -21,14 +21,14 @@ public func show(
         character,
         plot: plot,
         scenery: scenery,
-        inView: view
+        onView: view
     )
 }
 @discardableResult
 public func pin(
-    _ character: RoleplayAble,
+    _ character: ActorType,
     scenery: Scenery = .default,
-    inView view: UIView? = nil
+    onView view: UIView? = nil
     )
     -> Film
 {
@@ -38,15 +38,15 @@ public func pin(
         character,
         plot: plot,
         scenery: scenery,
-        inView: view
+        onView: view
     )
 }
 
 @discardableResult
 public func flash(
-    _ character: RoleplayAble,
+    _ character: ActorType,
     scenery: Scenery = .default,
-    inView view: UIView? = nil
+    onView view: UIView? = nil
     )
     -> Film
 {
@@ -56,7 +56,7 @@ public func flash(
         character,
         plot: plot,
         scenery: scenery,
-        inView: view
+        onView: view
     )
 }
 
@@ -81,7 +81,7 @@ public func showAlertView(_ alert: AlertView)
         character,
         plot: plot,
         scenery: scenery,
-        inView: nil
+        onView: nil
     )
 }
 
@@ -100,7 +100,7 @@ public func showActivityIndicator(inView view: UIView? = nil
         character,
         plot: plot,
         scenery: scenery,
-        inView: view
+        onView: view
     )
 }
 

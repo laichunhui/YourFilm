@@ -48,7 +48,7 @@ class Stage: UIVisualEffectView {
         addMotionEffect(group)
     }
     
-    func display(_ character: RoleplayAble, effect: StageEffectStyle) {
+    func display(_ character: ActorType, effect: StageEffectStyle) {
         //clearContents()
         self.contentView.subviews.forEach {
             $0.removeFromSuperview()
@@ -60,7 +60,7 @@ class Stage: UIVisualEffectView {
         case .color(let color):
             backgroundColor = color
         case .dim:
-             backgroundColor = UIColor(white: 0.1, alpha: 0.56)
+            backgroundColor = UIColor(white: 0, alpha: 0.56)
         }
         
         frame.size = character.face.bounds.size

@@ -30,6 +30,9 @@ enum FilmAnimation {
 
 public enum StagePosition {
     case center
+    case top
+    case left
+    case right
     case bottom
 }
 

@@ -8,39 +8,36 @@
 
 import UIKit
 
-struct RoleConfigs {
-    struct HUD {
-        static let labelTextFont =  UIFont.systemFont(ofSize: 15)
-        static let indicatorSize = CGSize(width: 80.0, height: 80.0)
-    }
-    
-    struct Alert {
-        static let backgroundColor: UIColor = UIColor(yfHexValue: 0x66C7FF)
-        static let titleBgColor: UIColor = UIColor(yfHexValue: 0x33A2FD, alpha: 0.7)
-        
-        static let titleFont = UIFont.boldSystemFont(ofSize: 16)
-        static let textFont = UIFont.systemFont(ofSize: 14)
-       
-        static let width: CGFloat = 270
-        static let titleHeight: CGFloat = 38
-        static let textFieldHeight: CGFloat = 34
-        static let actionHeight: CGFloat = 38
-    }
-}
-
 /**
     演员  相由心生
  */
 
-class Actor: RoleplayAble {
-    var type = RoleType.custom
+public protocol ActorType {
+    //    associatedtype E
     
-    var face: UIView {
-        return UIView()
-    }
+    var face: UIView { get }
     
-    var progress: Double = 0
+    //    func on(_ action: Action<E>)
 }
+
+
+public enum Action<Element> {
+    case next(Element)
+    case completed
+}
+
+public protocol FilmProgressDelegate {
+    
+    func progressChanged(progress: Double, on: UIView)
+}
+
+
+extension UIView: ActorType {
+    public var face: UIView {
+        return self
+    }
+}
+
 
 //MARK: - HUD
 public enum HUDContent {
@@ -51,9 +48,13 @@ public enum HUDContent {
     case progress
 }
 
-open class HUD: RoleplayAble {
-    public var type: RoleType {
-        return RoleType.hud
+open class HUD: ActorType {
+    struct Metric {
+        static let labelTextFont =  UIFont.systemFont(ofSize: 15)
+        static let indicatorSize = CGSize(width: 80.0, height: 80.0)
+        
+        static let maxContentHeight: CGFloat = 200
+        static let minContentHeight: CGFloat = 80
     }
     
     public var progressVeil: MagicVeil?
@@ -82,15 +83,16 @@ open class HUD: RoleplayAble {
         
         switch self.content {
         case .label(let text):
-            let textSize = text?.yf_size(titleFont: RoleConfigs.HUD.labelTextFont, maxWidth: UIScreen.main.bounds.width - 50) ?? CGSize.zero
-            face.frame.size = CGSize(width: textSize.width + 18, height: textSize.height + 16)
+            let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 50) ?? CGSize.zero
+            let height = min(Metric.maxContentHeight, max(textSize.height + 16, Metric.minContentHeight))
+            face.frame.size = CGSize(width: textSize.width + 18, height: height)
             
             let label = UILabel()
                 label.textAlignment = .center
-                label.font = RoleConfigs.HUD.labelTextFont
+                label.font = Metric.labelTextFont
                 label.textColor = UIColor.black.withAlphaComponent(0.8)
                 label.adjustsFontSizeToFitWidth = true
-                label.numberOfLines = 3
+                label.numberOfLines = 5
                 label.text = text
                 let padding: CGFloat = 10.0
                 label.frame = face.bounds.insetBy(dx: padding, dy: padding)
@@ -98,7 +100,7 @@ open class HUD: RoleplayAble {
             face.addSubview(label)
         
         case .activityIndicator:
-            face.frame.size = RoleConfigs.HUD.indicatorSize
+            face.frame.size = Metric.indicatorSize
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
                 activityIndicator.color = UIColor.black
                 activityIndicator.center = face.center
@@ -208,6 +210,19 @@ private class ActionControl: UIButton {
 
 open class AlertView: UIView {
     
+    struct Metric {
+        static let backgroundColor: UIColor = UIColor(yfHexValue: 0x66C7FF)
+        static let titleBgColor: UIColor = UIColor(yfHexValue: 0x33A2FD, alpha: 0.7)
+        
+        static let titleFont = UIFont.boldSystemFont(ofSize: 16)
+        static let textFont = UIFont.systemFont(ofSize: 14)
+        
+        static let width: CGFloat = 270
+        static let titleHeight: CGFloat = 38
+        static let textFieldHeight: CGFloat = 34
+        static let actionHeight: CGFloat = 38
+    }
+    
     public convenience init(title: String?, message: String?, preferredStyle: AlertStyle) {
         self.init()
         
@@ -219,7 +234,7 @@ open class AlertView: UIView {
     public init() {
         self.preferredStyle = .alert
         super.init(frame: CGRect.zero)
-        backgroundColor = RoleConfigs.Alert.backgroundColor
+        backgroundColor = Metric.backgroundColor
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -260,18 +275,18 @@ open class AlertView: UIView {
     func layoutUI() {
         subviews.forEach { $0.removeFromSuperview() }
         
-        let width = RoleConfigs.Alert.width
-        let messageHeight = (message?.yf_size(titleFont: RoleConfigs.Alert.textFont, maxWidth: RoleConfigs.Alert.width).height) ?? 0 + 20
+        let width = Metric.width
+        let messageHeight = (message?.yf_size(titleFont: Metric.textFont, maxWidth: Metric.width).height) ?? 0 + 20
 
         var lineY: CGFloat = 0
         
-        let titleHeight = title == nil ? CGFloat(0) : RoleConfigs.Alert.titleHeight
+        let titleHeight = title == nil ? CGFloat(0) : Metric.titleHeight
         let titleLable = UILabel()
             titleLable.text = title
             titleLable.textAlignment = .center
-            titleLable.backgroundColor = RoleConfigs.Alert.titleBgColor
+            titleLable.backgroundColor = Metric.titleBgColor
             titleLable.textColor = UIColor.white
-            titleLable.font = RoleConfigs.Alert.titleFont
+            titleLable.font = Metric.titleFont
             titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
         
         
@@ -280,7 +295,7 @@ open class AlertView: UIView {
         
         let messageLable = UILabel()
             messageLable.text = message
-            messageLable.font = RoleConfigs.Alert.textFont
+            messageLable.font = Metric.textFont
             messageLable.textColor = UIColor.white
             messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
         
@@ -288,9 +303,9 @@ open class AlertView: UIView {
         lineY += messageHeight + 30
         
         textFields?.forEach({ (field) in
-            field.frame = CGRect.init(x: 10, y: lineY, width: width-20, height: RoleConfigs.Alert.textFieldHeight)
+            field.frame = CGRect.init(x: 10, y: lineY, width: width-20, height: Metric.textFieldHeight)
             addSubview(field)
-            lineY += RoleConfigs.Alert.textFieldHeight + 10
+            lineY += Metric.textFieldHeight + 10
         })
         
         if actions.count == 2 {
@@ -298,19 +313,19 @@ open class AlertView: UIView {
                 let actionButton = ActionControl.init(action: action)
                 let actionWidth =  width / 2 - 0.5
                 let x = i == 0 ? actionWidth * CGFloat(i) : actionWidth * CGFloat(i) + 1
-                actionButton.frame = CGRect.init(x: x, y: lineY, width: actionWidth, height: RoleConfigs.Alert.actionHeight)
+                actionButton.frame = CGRect.init(x: x, y: lineY, width: actionWidth, height: Metric.actionHeight)
                 
                 addSubview(actionButton)
             }
-            lineY += RoleConfigs.Alert.actionHeight
+            lineY += Metric.actionHeight
         }
         else {
             actions.forEach { (action) in
                 let actionButton = ActionControl.init(action: action)
-                actionButton.frame = CGRect.init(x: 0, y: lineY, width: width, height: RoleConfigs.Alert.actionHeight)
+                actionButton.frame = CGRect.init(x: 0, y: lineY, width: width, height: Metric.actionHeight)
                 
                 addSubview(actionButton)
-                lineY += RoleConfigs.Alert.actionHeight + 1
+                lineY += Metric.actionHeight + 1
             }
         }
         

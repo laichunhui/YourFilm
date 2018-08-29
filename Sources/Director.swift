@@ -15,10 +15,10 @@ open class Director {
     
     @discardableResult
     open func make(
-        _ character: RoleplayAble,
+        _ character: ActorType,
         plot: Plot = .default,
         scenery: Scenery = .default,
-        inView view: UIView? = nil) -> Film {
+        onView view: UIView? = nil) -> Film {
         
         if let film = currentFilm {
             clean(film)
@@ -32,7 +32,6 @@ open class Director {
             view.addSubview(film.space)
             film.opening()
         }
-        
         return film
     }
     

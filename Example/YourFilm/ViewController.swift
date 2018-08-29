@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         
         let action1 = AlertAction.init(title: "取消", handler: { _ in
             print("cancel()")
-            YourFilm_Example.curtainCall()
+            curtainCall()
         })
         
         alert.addAction(action1)
@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         })
 
         alert.addAction(destructive)
-        YourFilm_Example.pin(alert)
+        pin(alert)
     }
 }
 
