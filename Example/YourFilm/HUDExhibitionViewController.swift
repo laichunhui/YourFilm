@@ -108,7 +108,7 @@ class HUDExhibitionViewController: UIViewController {
     }
     
     @objc func showHUD() {
-        let character = HUD.init(content: HUDContent.label("的您日涅i单独的覅哦哦"))
+        let character = HUD.init(content: HUDContent.label("的您日涅已滴滴滴你电脑你打你", textColor: .white))
         
         var scenery = Scenery()
         scenery.spaceEffect = .color(faceBgColorSelector.color)

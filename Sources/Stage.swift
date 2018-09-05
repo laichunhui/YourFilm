@@ -20,7 +20,7 @@ class Stage: UIVisualEffectView {
     var position: StagePosition = .center
     
     internal init() {
-        super.init(effect: UIBlurEffect(style: .light))
+        super.init(effect: UIBlurEffect(style: .dark))
         commonInit()
     }
     
@@ -60,7 +60,8 @@ class Stage: UIVisualEffectView {
         case .color(let color):
             backgroundColor = color
         case .dim:
-            backgroundColor = UIColor(white: 0, alpha: 0.56)
+            backgroundColor = UIColor.black
+            self.alpha = 0.7
         }
         
         frame.size = character.face.bounds.size

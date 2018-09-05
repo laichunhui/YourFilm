@@ -41,20 +41,20 @@ extension UIView: ActorType {
 
 //MARK: - HUD
 public enum HUDContent {
-    case label(String?)
-    case image(UIImage?)
-    
+    case label(String?, textColor: UIColor)
     case activityIndicator
     case progress
 }
 
 open class HUD: ActorType {
     struct Metric {
-        static let labelTextFont =  UIFont.systemFont(ofSize: 15)
+        static let labelTextFont =  UIFont.boldSystemFont(ofSize: 15)
         static let indicatorSize = CGSize(width: 80.0, height: 80.0)
         
         static let maxContentHeight: CGFloat = 200
         static let minContentHeight: CGFloat = 80
+        
+        static let edgePadding: CGFloat = 10
     }
     
     public var progressVeil: MagicVeil?
@@ -77,27 +77,26 @@ open class HUD: ActorType {
     
     open var face: UIView {
         let face = UIView()
-        face.alpha = 0.85
         face.clipsToBounds = true
         face.contentMode = .center
         
         switch self.content {
-        case .label(let text):
-            let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 50) ?? CGSize.zero
-            let height = min(Metric.maxContentHeight, max(textSize.height + 16, Metric.minContentHeight))
-            face.frame.size = CGSize(width: textSize.width + 18, height: height)
+        case .label(let text, let color):
+            let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 80) ?? CGSize.zero
+            let height = min(Metric.maxContentHeight, max(textSize.height + Metric.edgePadding * 2, Metric.minContentHeight))
+            face.frame.size = CGSize(width: textSize.width + Metric.edgePadding * 2, height: height)
             
             let label = UILabel()
                 label.textAlignment = .center
                 label.font = Metric.labelTextFont
-                label.textColor = UIColor.black.withAlphaComponent(0.8)
-                label.adjustsFontSizeToFitWidth = true
-                label.numberOfLines = 5
                 label.text = text
-                let padding: CGFloat = 10.0
+                label.textColor = color
+                label.adjustsFontSizeToFitWidth = true
+                label.numberOfLines = 3
+                let padding: CGFloat = Metric.edgePadding
                 label.frame = face.bounds.insetBy(dx: padding, dy: padding)
-            
-            face.addSubview(label)
+
+                face.addSubview(label)
         
         case .activityIndicator:
             face.frame.size = Metric.indicatorSize
@@ -122,9 +121,6 @@ open class HUD: ActorType {
             
             progressVeil = veil
             face.addSubview(progressVeil!)
-            
-        default:
-            break
         }
         
         return face
