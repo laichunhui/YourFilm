@@ -101,10 +101,10 @@ open class HUD: ActorType {
         case .activityIndicator:
             face.frame.size = Metric.indicatorSize
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-                activityIndicator.color = UIColor.black
+                activityIndicator.color = UIColor.white
                 activityIndicator.center = face.center
                 activityIndicator.startAnimating()
-           
+            
             face.addSubview(activityIndicator)
             
         case .progress:

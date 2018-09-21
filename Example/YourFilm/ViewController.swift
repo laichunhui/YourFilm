@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     var datasource: [MenuAction] {
         return [
             (title: "showHUD", action: #selector(ViewController.showHUD)),
-            (title: "showAlert", action: #selector(ViewController.showAlert))
+            (title: "showAlert", action: #selector(ViewController.showAlert)),
+            (title: "showLoading", action: #selector(ViewController.showLoading))
         ]
     }
     
@@ -45,6 +46,10 @@ class ViewController: UIViewController {
     
     @objc func showHUD() {
         performSegue(withIdentifier: "showHud", sender: nil)
+    }
+    
+    @objc func showLoading() {
+        showActivityIndicator()
     }
     
     @objc func showAlert() {

@@ -93,8 +93,9 @@ public func showActivityIndicator(inView view: UIView? = nil
 {
     let character = HUD(content: .activityIndicator)
     var plot = Plot.default
-    plot.showTimeDuration = 10.0
-    let scenery: Scenery = .default
+    plot.showTimeDuration = 15
+    var scenery: Scenery = .default
+    scenery.stageEffect = .dim
     
     return Director.default.make(
         character,

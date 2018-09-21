@@ -30,6 +30,7 @@ class Stage: UIVisualEffectView {
     }
     
     fileprivate func commonInit() {
+
         layer.cornerRadius = 9.0
         layer.masksToBounds = true
        
@@ -56,11 +57,11 @@ class Stage: UIVisualEffectView {
         
         switch effect {
         case .blur:
-            backgroundColor = UIColor(white: 0.8, alpha: 0.36)
+            contentView.backgroundColor = UIColor(white: 0.8, alpha: 0.36)
         case .color(let color):
-            backgroundColor = color
+            contentView.backgroundColor = color
         case .dim:
-            backgroundColor = UIColor.black
+            contentView.backgroundColor = UIColor.black
             self.alpha = 0.7
         }
         
