@@ -20,7 +20,7 @@ class Stage: UIVisualEffectView {
     var position: StagePosition = .center
     
     internal init() {
-        super.init(effect: UIBlurEffect(style: .dark))
+        super.init(effect: UIBlurEffect(style: .light))
         commonInit()
     }
     

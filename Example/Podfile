@@ -9,9 +9,4 @@ target 'YourFilm_Example' do
     pod 'SYKit', :git => 'https://gitee.com/laichunhui/SYKit.git'
     pod 'SnapKit'
 
-  target 'YourFilm_Tests' do
-    inherit! :search_paths
-
-    pod 'FBSnapshotTestCase' , '~> 2.1.4'
-  end
 end

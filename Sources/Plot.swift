@@ -48,11 +48,11 @@ public struct Plot {
         plot.showTimeDuration = 2.0
         
         let appear = CATransition()
-        appear.type = kCATransitionReveal
+        appear.type = CATransitionType.reveal
         plot.appearAnimation = appear
         
         let disappear = CATransition()
-        disappear.type = kCATransitionFade
+        disappear.type = CATransitionType.fade
         
         plot.disappearAnimation = disappear
         

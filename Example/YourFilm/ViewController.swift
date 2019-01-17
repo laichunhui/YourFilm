@@ -49,7 +49,14 @@ class ViewController: UIViewController {
     }
     
     @objc func showLoading() {
-        showActivityIndicator()
+        let image = UIImage(named: "com_loading_red")!
+        let character = HUD(content: HUDContent.loading(image: image, title: "大家都四嘎嘎嘎嘎嘎过过过干活干活干活十的地方规定懂"))
+        var plot = Plot.default
+        plot.showTimeDuration = 5
+        var scenery = Scenery.default
+        scenery.stageEffect = .color(.clear)
+        YourFilm_Example.show(character, plot: plot, scenery: scenery)
+//        showActivityIndicator()
     }
     
     @objc func showAlert() {

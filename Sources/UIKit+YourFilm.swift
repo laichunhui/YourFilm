@@ -23,7 +23,7 @@ extension String {
         
         let rect = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                      options: .usesLineFragmentOrigin,
-                                     attributes: [NSAttributedStringKey.font: font],
+                                     attributes: [NSAttributedString.Key.font: font],
                                      context: nil)
         return rect.size
     }

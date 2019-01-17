@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-    演员  相由心生
+ 演员  相由心生
  */
 
 public protocol ActorType {
@@ -43,6 +43,7 @@ extension UIView: ActorType {
 public enum HUDContent {
     case label(String?, textColor: UIColor)
     case activityIndicator
+    case loading(image: UIImage, title: String?)
     case progress
 }
 
@@ -52,7 +53,7 @@ open class HUD: ActorType {
         static let indicatorSize = CGSize(width: 80.0, height: 80.0)
         
         static let maxContentHeight: CGFloat = 200
-        static let minContentHeight: CGFloat = 80
+        static let minContentHeight: CGFloat = 60
         
         static let edgePadding: CGFloat = 10
     }
@@ -87,40 +88,70 @@ open class HUD: ActorType {
             face.frame.size = CGSize(width: textSize.width + Metric.edgePadding * 2, height: height)
             
             let label = UILabel()
-                label.textAlignment = .center
-                label.font = Metric.labelTextFont
-                label.text = text
-                label.textColor = color
-                label.adjustsFontSizeToFitWidth = true
-                label.numberOfLines = 3
-                let padding: CGFloat = Metric.edgePadding
-                label.frame = face.bounds.insetBy(dx: padding, dy: padding)
-
-                face.addSubview(label)
-        
+            label.textAlignment = .center
+            label.font = Metric.labelTextFont
+            label.text = text
+            label.textColor = color
+            label.adjustsFontSizeToFitWidth = true
+            label.numberOfLines = 3
+            let padding: CGFloat = Metric.edgePadding
+            label.frame = face.bounds.insetBy(dx: padding, dy: padding)
+            
+            face.addSubview(label)
+            
         case .activityIndicator:
             face.frame.size = Metric.indicatorSize
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-                activityIndicator.color = UIColor.white
-                activityIndicator.center = face.center
-                activityIndicator.startAnimating()
+            let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+            activityIndicator.color = UIColor.white
+            activityIndicator.center = face.center
+            activityIndicator.startAnimating()
             
             face.addSubview(activityIndicator)
             
         case .progress:
             face.frame.size = CGSize(width: 100.0, height: 100.0)
-           
+            
             let veil = MagicVeil()
-                veil.frame.size = CGSize(width: 80.0, height: 80.0)
-                veil.center = CGPoint(x: 50, y: 50)
-                veil.shouldShowGuide = true
-                veil.lineWidth = 3.0
-                veil.guideColor = UIColor.green
-                veil.guideLineWidth = 8.0
-                veil.colors = [UIColor.red, UIColor.black, UIColor.purple]
+            veil.frame.size = CGSize(width: 80.0, height: 80.0)
+            veil.center = CGPoint(x: 50, y: 50)
+            veil.shouldShowGuide = true
+            veil.lineWidth = 3.0
+            veil.guideColor = UIColor.green
+            veil.guideLineWidth = 8.0
+            veil.colors = [UIColor.red, UIColor.black, UIColor.purple]
             
             progressVeil = veil
             face.addSubview(progressVeil!)
+            
+        case let .loading(image, title):
+            face.frame.size = CGSize(width: 100.0, height: 80.0)
+           
+            let imageLayer = CALayer()
+            imageLayer.contents = image.cgImage
+            let imageSize = min(image.size.width, 40)
+            imageLayer.frame = CGRect(x: 50 - imageSize / 2, y: 5, width: imageSize, height: imageSize)
+            
+            face.layer.addSublayer(imageLayer)
+            
+            let anim = CABasicAnimation(keyPath: "transform.rotation.z")
+            anim.fromValue = 0
+            anim.toValue = 2 * Float.pi
+            anim.duration = 0.8
+            anim.repeatCount = Float.greatestFiniteMagnitude
+            anim.isRemovedOnCompletion = false
+            imageLayer.add(anim, forKey: "rotation")
+            imageLayer.speed = 0.8
+            
+            if let title = title {
+                let label = UILabel()
+                label.frame = CGRect(x: 0, y: 12 + imageSize, width: 100.0, height: 30.0)
+                label.font = UIFont.systemFont(ofSize: 12)
+                label.textColor = UIColor(red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+                label.text = title
+                label.textAlignment = .center
+                label.numberOfLines = 2
+                face.addSubview(label)
+            }
         }
         
         return face
@@ -152,7 +183,7 @@ open class AlertAction: NSObject {
         get { return _title }
     }
     
-     var _handler: ((AlertAction) -> Swift.Void)?
+    var _handler: ((AlertAction) -> Swift.Void)?
 }
 
 
@@ -171,7 +202,7 @@ private class ActionControl: UIButton {
         setTitle(action.title, for: .normal)
         setTitleColor(action.titleColor, for: .normal)
         backgroundColor = action.backgroundColor
-
+        
         addTarget(self, action: #selector(ActionControl.performAction), for: .touchUpInside)
     }
     
@@ -273,27 +304,27 @@ open class AlertView: UIView {
         
         let width = Metric.width
         let messageHeight = (message?.yf_size(titleFont: Metric.textFont, maxWidth: Metric.width).height) ?? 0 + 20
-
+        
         var lineY: CGFloat = 0
         
         let titleHeight = title == nil ? CGFloat(0) : Metric.titleHeight
         let titleLable = UILabel()
-            titleLable.text = title
-            titleLable.textAlignment = .center
-            titleLable.backgroundColor = Metric.titleBgColor
-            titleLable.textColor = UIColor.white
-            titleLable.font = Metric.titleFont
-            titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
+        titleLable.text = title
+        titleLable.textAlignment = .center
+        titleLable.backgroundColor = Metric.titleBgColor
+        titleLable.textColor = UIColor.white
+        titleLable.font = Metric.titleFont
+        titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
         
         
         addSubview(titleLable)
         lineY += titleHeight + 10
         
         let messageLable = UILabel()
-            messageLable.text = message
-            messageLable.font = Metric.textFont
-            messageLable.textColor = UIColor.white
-            messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
+        messageLable.text = message
+        messageLable.font = Metric.textFont
+        messageLable.textColor = UIColor.white
+        messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
         
         addSubview(messageLable)
         lineY += messageHeight + 30
@@ -328,7 +359,7 @@ open class AlertView: UIView {
         let totalHeight = lineY
         layer.cornerRadius = 3
         clipsToBounds = true
-
+        
         frame = CGRect(x: 0, y: 0, width: width, height: totalHeight)
     }
     
@@ -338,3 +369,4 @@ open class AlertView: UIView {
         }
     }
 }
+
