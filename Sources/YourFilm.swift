@@ -10,7 +10,7 @@ import UIKit
 
 @discardableResult
 public func show(
-    _ character: ActorType,
+    _ character: Actor,
     plot: Plot = .default,
     scenery: Scenery = .default,
     onView view: UIView? = nil
@@ -24,9 +24,10 @@ public func show(
         onView: view
     )
 }
+
 @discardableResult
 public func pin(
-    _ character: ActorType,
+    _ character: Actor,
     scenery: Scenery = .default,
     onView view: UIView? = nil
     )
@@ -43,15 +44,19 @@ public func pin(
 }
 
 @discardableResult
-public func flash(
-    _ character: ActorType,
-    scenery: Scenery = .default,
+public func showText(
+    _ text: String,
+    textColor: UIColor = .white,
     onView view: UIView? = nil
     )
     -> Film
 {
+    let character = HUD.init(content: HUDContent.label(text, textColor: textColor))
+    var scenery = Scenery()
+    scenery.spaceEffect = .clean
+    scenery.stageEffect = .dim
     var plot = Plot.default
-    plot.showTimeDuration = TimeInterval(Int.max)
+    plot.showTimeDuration = 2
     return Director.default.make(
         character,
         plot: plot,
@@ -59,7 +64,6 @@ public func flash(
         onView: view
     )
 }
-
 
 @discardableResult
 public func showAlertView(_ alert: AlertView)
@@ -87,15 +91,35 @@ public func showAlertView(_ alert: AlertView)
 
 
 @discardableResult
-public func showActivityIndicator(inView view: UIView? = nil
+public func showActivityIndicator(onView view: UIView? = nil
     )
     -> Film
 {
     let character = HUD(content: .activityIndicator)
     var plot = Plot.default
-    plot.showTimeDuration = 15
+    plot.showTimeDuration = 12
     var scenery: Scenery = .default
     scenery.stageEffect = .dim
+    
+    return Director.default.make(
+        character,
+        plot: plot,
+        scenery: scenery,
+        onView: view
+    )
+}
+
+@discardableResult
+public func showLoading(image: UIImage, title: String?, onView view: UIView? = nil
+    )
+    -> Film
+{
+    let character = HUD(content: .loading(image: image, title: title))
+    var plot = Plot.default
+    plot.showTimeDuration = 12
+    plot.rolePlayAnimation = Animation.continuousRotation
+    var scenery: Scenery = .default
+    scenery.stageEffect = .clean
     
     return Director.default.make(
         character,

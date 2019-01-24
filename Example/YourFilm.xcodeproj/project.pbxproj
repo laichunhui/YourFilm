@@ -21,6 +21,7 @@
 		04CAACFB212FAB8A000DE8CE /* RGBColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACFA212FAB8A000DE8CE /* RGBColorSelector.swift */; };
 		04CAACFD212FABBD000DE8CE /* RGBColorSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CAACFC212FABBD000DE8CE /* RGBColorSelector.xib */; };
 		04CAACFF212FDEC6000DE8CE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACFE212FDEC6000DE8CE /* Helper.swift */; };
+		1C48480D21F96DC20028B8FD /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C48480C21F96DC20028B8FD /* Animations.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		04CAACFC212FABBD000DE8CE /* RGBColorSelector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RGBColorSelector.xib; sourceTree = "<group>"; };
 		04CAACFE212FDEC6000DE8CE /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1A82935F923A40350923662A /* Pods-YourFilm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourFilm_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourFilm_Tests/Pods-YourFilm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		1C48480C21F96DC20028B8FD /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		3BB264DBE8083780D9A7F83C /* Pods_YourFilm_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourFilm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CDA2CFECA6A26C83EBD83D /* YourFilm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YourFilm.podspec; path = ../YourFilm.podspec; sourceTree = "<group>"; };
 		5C2C2E18EA42064BB14394B9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -79,15 +81,16 @@
 		04CAACDA212E9B72000DE8CE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				04CAACDB212E9B72000DE8CE /* Space.swift */,
-				04CAACDC212E9B72000DE8CE /* Film.swift */,
-				04CAACDD212E9B72000DE8CE /* Scenery.swift */,
-				04CAACDE212E9B72000DE8CE /* Plot.swift */,
-				04CAACDF212E9B72000DE8CE /* UIKit+YourFilm.swift */,
-				04CAACE0212E9B72000DE8CE /* Stage.swift */,
-				04CAACE2212E9B72000DE8CE /* Actor.swift */,
 				04CAACE3212E9B72000DE8CE /* YourFilm.swift */,
 				04CAACE6212E9B72000DE8CE /* Director.swift */,
+				04CAACDC212E9B72000DE8CE /* Film.swift */,
+				04CAACDB212E9B72000DE8CE /* Space.swift */,
+				04CAACE0212E9B72000DE8CE /* Stage.swift */,
+				04CAACDE212E9B72000DE8CE /* Plot.swift */,
+				04CAACDD212E9B72000DE8CE /* Scenery.swift */,
+				04CAACE2212E9B72000DE8CE /* Actor.swift */,
+				1C48480C21F96DC20028B8FD /* Animations.swift */,
+				04CAACDF212E9B72000DE8CE /* UIKit+YourFilm.swift */,
 				04CAACE4212E9B72000DE8CE /* Veils */,
 			);
 			name = Sources;
@@ -238,7 +241,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = VN4WHFNWZZ;
+						DevelopmentTeam = DR5K5LQ4UE;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
@@ -302,13 +305,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-YourFilm_Example/Pods-YourFilm_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SYKit/SYKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SYKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -336,6 +339,7 @@
 				04CAACFB212FAB8A000DE8CE /* RGBColorSelector.swift in Sources */,
 				04CAACE7212E9B72000DE8CE /* Space.swift in Sources */,
 				04CAACEE212E9B72000DE8CE /* Actor.swift in Sources */,
+				1C48480D21F96DC20028B8FD /* Animations.swift in Sources */,
 				04CAACF0212E9B72000DE8CE /* MagicVeil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,14 +475,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = VN4WHFNWZZ;
+				DEVELOPMENT_TEAM = DR5K5LQ4UE;
 				INFOPLIST_FILE = YourFilm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chutzpah.hotcourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4e03228b-79d4-4d2e-b764-7375216e229c";
-				PROVISIONING_PROFILE_SPECIFIER = AnyDevPP;
+				PROVISIONING_PROFILE_SPECIFIER = hotCourseDev;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
@@ -492,9 +497,10 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = YourFilm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chutzpah.hotcourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

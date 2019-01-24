@@ -1,28 +1,20 @@
 PODS:
   - SnapKit (4.0.0)
-  - SYKit (0.1.4)
+  - Then (2.4.0)
 
 DEPENDENCIES:
   - SnapKit
-  - SYKit (from `https://gitee.com/laichunhui/SYKit.git`)
+  - Then
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SnapKit
-
-EXTERNAL SOURCES:
-  SYKit:
-    :git: https://gitee.com/laichunhui/SYKit.git
-
-CHECKOUT OPTIONS:
-  SYKit:
-    :commit: f2416b71acafe1dee1e345efcb72b79884b14ab3
-    :git: https://gitee.com/laichunhui/SYKit.git
+    - Then
 
 SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SYKit: 94040942f24768665d4b542587409e266767f3e8
+  Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
 
-PODFILE CHECKSUM: 1ccb83cb757362661dae7c97818bd5497b7e2a99
+PODFILE CHECKSUM: 85079d4c0130e1e25b1256b5c2e67fe2a311938a
 
 COCOAPODS: 1.5.3

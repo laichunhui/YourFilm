@@ -1,12 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://gitee.com/laichunhui/SYSpecs.git' #私有仓库
 
 use_frameworks!
 
 target 'YourFilm_Example' do
 
-    # 私有库
-    pod 'SYKit', :git => 'https://gitee.com/laichunhui/SYKit.git'
     pod 'SnapKit'
-
+    pod 'Then'
 end

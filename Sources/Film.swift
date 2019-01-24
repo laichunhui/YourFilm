@@ -20,7 +20,7 @@ open class Film: NSObject {
     fileprivate var endTimer: Timer?
         
     // MARK: Properties
-    open var character: ActorType
+    open var character: Actor
     
     open var plot: Plot
    
@@ -28,7 +28,7 @@ open class Film: NSObject {
     
     let space: Space
     
-    public init(character: ActorType, plot: Plot, scenery: Scenery) {
+    public init(character: Actor, plot: Plot, scenery: Scenery) {
         
         self.character = character
         self.plot = plot
@@ -43,6 +43,10 @@ open class Film: NSObject {
         
         if let appearAnim = plot.appearAnimation {
             space.stage.layer.add(appearAnim, forKey: "appearAnimation")
+        }
+        
+        if let rolePlayAnimation = plot.rolePlayAnimation {
+            character.animationLayer?.add(rolePlayAnimation, forKey: "rolePlayAnimation")
         }
         
         let timeinterval =  plot.showTimeDuration - (plot.disappearAnimation?.duration ?? 0)

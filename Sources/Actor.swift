@@ -8,23 +8,32 @@
 
 import UIKit
 
+/// 演员类别
+public enum ActorClassify: Int {
+    case loading
+    case hudText
+    case alert
+    case other
+    
+    public static func ==(lhs: ActorClassify, rhs: ActorClassify) -> Bool {
+        return lhs.rawValue == rhs.rawValue
+    }
+}
+
 /**
  演员  相由心生
  */
 
-public protocol ActorType {
-    //    associatedtype E
-    
+public protocol Actor {
     var face: UIView { get }
-    
-    //    func on(_ action: Action<E>)
+    var animationLayer: CALayer? { get }
+    var classify: ActorClassify { get }
 }
 
-
-public enum Action<Element> {
-    case next(Element)
-    case completed
-}
+//public enum Action<Element> {
+//    case next(Element)
+//    case completed
+//}
 
 public protocol FilmProgressDelegate {
     
@@ -32,9 +41,18 @@ public protocol FilmProgressDelegate {
 }
 
 
-extension UIView: ActorType {
+extension UIView: Actor {
+    
     public var face: UIView {
         return self
+    }
+    
+    public var animationLayer: CALayer? {
+        return self.layer
+    }
+    
+    public var classify: ActorClassify {
+        return .other
     }
 }
 
@@ -47,7 +65,7 @@ public enum HUDContent {
     case progress
 }
 
-open class HUD: ActorType {
+open class HUD: Actor {
     struct Metric {
         static let labelTextFont =  UIFont.boldSystemFont(ofSize: 15)
         static let indicatorSize = CGSize(width: 80.0, height: 80.0)
@@ -70,19 +88,35 @@ open class HUD: ActorType {
         }
     }
     
-    open var content: HUDContent
+    public var content: HUDContent
     
     public init(content: HUDContent) {
         self.content = content
+        switch content {
+        case .label:
+            self._classify = .hudText
+        default:
+            self._classify = .loading
+        }
     }
     
-    open var face: UIView {
+    private var _animationLayer: CALayer?
+    public var animationLayer: CALayer? {
+        return _animationLayer
+    }
+    private var _classify: ActorClassify = .hudText
+    public var classify: ActorClassify {
+        return _classify
+    }
+    
+    public var face: UIView {
         let face = UIView()
         face.clipsToBounds = true
         face.contentMode = .center
         
         switch self.content {
         case .label(let text, let color):
+        
             let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 80) ?? CGSize.zero
             let height = min(Metric.maxContentHeight, max(textSize.height + Metric.edgePadding * 2, Metric.minContentHeight))
             face.frame.size = CGSize(width: textSize.width + Metric.edgePadding * 2, height: height)
@@ -100,6 +134,7 @@ open class HUD: ActorType {
             face.addSubview(label)
             
         case .activityIndicator:
+            
             face.frame.size = Metric.indicatorSize
             let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
             activityIndicator.color = UIColor.white
@@ -132,15 +167,7 @@ open class HUD: ActorType {
             imageLayer.frame = CGRect(x: 50 - imageSize / 2, y: 5, width: imageSize, height: imageSize)
             
             face.layer.addSublayer(imageLayer)
-            
-            let anim = CABasicAnimation(keyPath: "transform.rotation.z")
-            anim.fromValue = 0
-            anim.toValue = 2 * Float.pi
-            anim.duration = 0.8
-            anim.repeatCount = Float.greatestFiniteMagnitude
-            anim.isRemovedOnCompletion = false
-            imageLayer.add(anim, forKey: "rotation")
-            imageLayer.speed = 0.8
+            self._animationLayer = imageLayer
             
             if let title = title {
                 let label = UILabel()
@@ -316,18 +343,18 @@ open class AlertView: UIView {
         titleLable.font = Metric.titleFont
         titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
         
-        
         addSubview(titleLable)
         lineY += titleHeight + 10
         
         let messageLable = UILabel()
         messageLable.text = message
         messageLable.font = Metric.textFont
+        messageLable.numberOfLines = 0
         messageLable.textColor = UIColor.white
         messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
         
         addSubview(messageLable)
-        lineY += messageHeight + 30
+        lineY += messageHeight + 15
         
         textFields?.forEach({ (field) in
             field.frame = CGRect.init(x: 10, y: lineY, width: width-20, height: Metric.textFieldHeight)

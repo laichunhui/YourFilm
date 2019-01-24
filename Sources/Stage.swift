@@ -9,7 +9,7 @@
 import UIKit
 
 /** 
-    舞台：提供给各类演员的表演空间
+    舞台：提供给各类角色的展示空间
  */
 
 public protocol StageAble {
@@ -49,8 +49,7 @@ class Stage: UIVisualEffectView {
         addMotionEffect(group)
     }
     
-    func display(_ character: ActorType, effect: StageEffectStyle) {
-        //clearContents()
+    func display(_ character: Actor, effect: StageEffectStyle) {
         self.contentView.subviews.forEach {
             $0.removeFromSuperview()
         }
@@ -58,16 +57,19 @@ class Stage: UIVisualEffectView {
         switch effect {
         case .blur:
             contentView.backgroundColor = UIColor(white: 0.8, alpha: 0.36)
+            self.alpha = 0.85
         case .color(let color):
             contentView.backgroundColor = color
         case .dim:
             contentView.backgroundColor = UIColor.black
             self.alpha = 0.7
+        case .clean:
+            self.effect = nil
+            self.contentView.backgroundColor = .clear
         }
         
         frame.size = character.face.bounds.size
         contentView.addSubview(character.face)
     }
-    
 }
 

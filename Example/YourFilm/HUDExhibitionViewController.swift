@@ -80,7 +80,6 @@ class HUDExhibitionViewController: UIViewController {
             make.size.equalTo(CGSize(width: view.frame.width, height: 380))
         }
         
-        
         faceBgColorSelector.snp.makeConstraints { (make) in
             make.top.equalTo(60)
             make.right.bottom.equalToSuperview()
@@ -108,7 +107,7 @@ class HUDExhibitionViewController: UIViewController {
     }
     
     @objc func showHUD() {
-        let character = HUD.init(content: HUDContent.label("的您日涅已滴滴滴你电脑你打你", textColor: .white))
+        let character = HUD.init(content: HUDContent.label("为了更美好的明天而战~~~~~~", textColor: .white))
         
         var scenery = Scenery()
         scenery.spaceEffect = .color(faceBgColorSelector.color)

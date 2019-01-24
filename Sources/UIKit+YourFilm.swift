@@ -7,6 +7,18 @@
 
 import UIKit
 
+public extension IntegerLiteralType {
+    public var f: CGFloat {
+        return CGFloat(self)
+    }
+}
+
+public extension FloatLiteralType {
+    public var f: CGFloat {
+        return CGFloat(self)
+    }
+}
+
 extension Array {
     
     ///Element at the given index if it exists.
@@ -30,7 +42,6 @@ extension String {
 }
 
 extension UIColor {
-    //用数值初始化颜色，便于生成设计图上标明的十六进制颜色
     convenience init(yfHexValue: UInt, alpha: CGFloat = 1.0) {
         self.init(
             red: CGFloat((yfHexValue & 0xFF0000) >> 16) / 255.0,

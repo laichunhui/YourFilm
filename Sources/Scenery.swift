@@ -12,6 +12,7 @@ public enum StageEffectStyle {
     case blur
     case dim
     case color(_: UIColor)
+    case clean
 }
 
 public enum SpaceEffectStyle {
