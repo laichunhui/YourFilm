@@ -9,7 +9,7 @@
 import UIKit
 
 open class Director {
-    static let `default` = Director()
+    public static let `default` = Director()
     
     var currentFilm: Film?
     var films: [Film] = []
@@ -38,15 +38,8 @@ open class Director {
         currentFilm?.curtainCall()
     }
     
-    public func cleanFilm(with actorClassify: ActorClassify) {
+    public func cleanFilms(with actorClassify: ActorClassify) {
         films.filter { $0.character.classify == actorClassify  }
-            .forEach { (film) in
-                film.curtainCall()
-        }
-    }
-    
-    public func cleanFilm(with identifier: String) {
-        films.filter { $0.identifier == identifier  }
             .forEach { (film) in
                 film.curtainCall()
         }

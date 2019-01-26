@@ -135,3 +135,7 @@ public func cleanAllFilms() {
 }
 
 
+public func cleanFilms(with actorClassify: ActorClassify) {
+    Director.default.cleanFilms(with: actorClassify)
+}
+

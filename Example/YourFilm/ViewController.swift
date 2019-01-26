@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     }
     
     @objc func cleanAll() {
-        YourFilm_Example.curtainCallAll()
+        YourFilm_Example.cleanAllFilms()
     }
     
     func setupUI() {
