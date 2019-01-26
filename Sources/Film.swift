@@ -28,6 +28,8 @@ open class Film: NSObject {
     
     let space: Space
     
+    let identifier = NSUUID().uuidString
+    
     public init(character: Actor, plot: Plot, scenery: Scenery) {
         
         self.character = character

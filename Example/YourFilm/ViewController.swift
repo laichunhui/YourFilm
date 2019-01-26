@@ -33,11 +33,11 @@ class ViewController: UIViewController {
     }()
     
     let rightItem = UIButton().then {
-        $0.setTitle("show", for: .normal)
+        $0.setTitle("clean", for: .normal)
     }
     
-    @objc func showMore() {
-        YourFilm_Example.showText("未来的时代搜到发你丰富", onView: self.tableView)
+    @objc func cleanAll() {
+        YourFilm_Example.curtainCallAll()
     }
     
     func setupUI() {
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         tableView.frame = view.bounds
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
-        rightItem.addTarget(self, action: #selector(ViewController.showMore), for: .touchUpInside)
+        rightItem.addTarget(self, action: #selector(ViewController.cleanAll), for: .touchUpInside)
     }
     
 
@@ -87,14 +87,15 @@ class ViewController: UIViewController {
             print("\(alert.textFields?.first?.text ?? "")")
         })
         alert.addAction(action)
-        
+        var cancelBlock: (() -> Void)?
         let action1 = AlertAction.init(title: "取消", handler: { _ in
             print("cancel()")
-            curtainCall()
+            cancelBlock?()
         })
         
         alert.addAction(action1)
-        pin(alert)
+        let film = pin(alert)
+        cancelBlock = { film.curtainCall() }
     }
 }
 

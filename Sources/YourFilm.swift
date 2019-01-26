@@ -129,8 +129,9 @@ public func showLoading(image: UIImage, title: String?, onView view: UIView? = n
     )
 }
 
-public func curtainCall() {
-    Director.default.currentFilm?.curtainCall()
+/** 此处只能清除通过 director 创建的film */
+public func cleanAllFilms() {
+    Director.default.cleanAllFilms()
 }
 
 

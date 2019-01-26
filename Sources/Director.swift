@@ -12,6 +12,7 @@ open class Director {
     static let `default` = Director()
     
     var currentFilm: Film?
+    var films: [Film] = []
     
     @discardableResult
     open func make(
@@ -19,24 +20,52 @@ open class Director {
         plot: Plot = .default,
         scenery: Scenery = .default,
         onView view: UIView? = nil) -> Film {
-        /// 同一类别演员不能重复出现
-        if let film = currentFilm, film.character.classify == character.classify {
-            clean(film)
-        }
+ 
+        let newfilm = Film(character: character, plot: plot, scenery: scenery)
+        newfilm.delegate = self
+        currentFilm = newfilm
+        films.append(newfilm)
         
-        let film = Film(character: character, plot: plot, scenery: scenery)
-        currentFilm = film
-       
         if let view: UIView = view ?? UIApplication.shared.keyWindow {
-            film.space.frame = view.bounds
-            view.addSubview(film.space)
-            film.opening()
+            newfilm.space.frame = view.bounds
+            view.addSubview(newfilm.space)
+            newfilm.opening()
         }
-        return film
+        return newfilm
     }
     
-    private func clean(_ film: Film) {
-        film.space.clearUp()
-        currentFilm = nil
+    public func cleanLastFilm() {
+        currentFilm?.curtainCall()
+    }
+    
+    public func cleanFilm(with actorClassify: ActorClassify) {
+        films.filter { $0.character.classify == actorClassify  }
+            .forEach { (film) in
+                film.curtainCall()
+        }
+    }
+    
+    public func cleanFilm(with identifier: String) {
+        films.filter { $0.identifier == identifier  }
+            .forEach { (film) in
+                film.curtainCall()
+        }
+    }
+    
+    public func cleanAllFilms() {
+        films.forEach { film in
+            film.curtainCall()
+        }
+    }
+}
+
+extension Director: FilmDelegate {
+    public func filmDidStart(_ film: Film) {
+        
+    }
+    
+    public func filmDidEnd(_ film: Film) {
+        films = films.filter { $0.identifier != film.identifier }
+        currentFilm = films.last
     }
 }
