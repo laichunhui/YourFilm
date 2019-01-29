@@ -31,7 +31,7 @@ class Stage: UIVisualEffectView {
     
     fileprivate func commonInit() {
 
-        layer.cornerRadius = 9.0
+        layer.cornerRadius = 4.0
         layer.masksToBounds = true
        
         let offset = 20.0
