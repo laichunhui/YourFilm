@@ -72,23 +72,25 @@ class ViewController: UIViewController {
     }
     
     @objc func showActivity() {
-        showActivityIndicator()
+        showActivityIndicator(onView: self.tableView)
     }
     
     @objc func showAlert() {
-        let alert = AlertView.init(title: "玻璃杯", message: "The beer foamed up and overflowed the glass", preferredStyle: .actionSheet)
+        let alert = AlertView.init(title: "玻璃杯", message: "The beer foamed up and overflowed the glass", preferredStyle: .actionSheet, theme: .white)
 
         alert.addTextField { (field) in
             field.placeholder = "请输入啦啦啦"
             field.borderStyle = .roundedRect
+            field.font = UIFont.systemFont(ofSize: 14)
         }
         
-        let action = AlertAction.init(title: "确定", handler: { _ in
+        let action = AlertAction(title: "确定", handler: { action in
+            
             print("\(alert.textFields?.first?.text ?? "")")
         })
         alert.addAction(action)
         var cancelBlock: (() -> Void)?
-        let action1 = AlertAction.init(title: "取消", handler: { _ in
+        let action1 = AlertAction(title: "取消", handler: { _ in
             print("cancel()")
             cancelBlock?()
         })
@@ -109,7 +111,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if  let model = datasource.yf_Element(at: indexPath.row) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
             cell.textLabel?.text = model.title
-            cell.accessoryType = .disclosureIndicator
+            
+            switch model.title {
+            case "showActivity", "showLoading":
+                cell.accessoryType = .none
+            default:
+                cell.accessoryType = .disclosureIndicator
+            }
+
             return cell
         }
         
@@ -117,7 +126,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 70
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

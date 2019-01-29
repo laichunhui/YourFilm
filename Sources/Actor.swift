@@ -67,7 +67,7 @@ public enum HUDContent {
 
 open class HUD: Actor {
     struct Metric {
-        static let labelTextFont =  UIFont.boldSystemFont(ofSize: 15)
+        static let labelTextFont =  UIFont.systemFont(ofSize: 15)
         static let indicatorSize = CGSize(width: 80.0, height: 80.0)
         
         static let maxContentHeight: CGFloat = 200
@@ -203,8 +203,8 @@ open class AlertAction: NSObject {
     
     open var isEnabled: Bool = true
     
-    open var backgroundColor: UIColor = UIColor(yfHexValue: 0xFFFFFF, alpha: 0.3)
-    open var titleColor: UIColor = UIColor(yfHexValue: 0x2492ED, alpha: 0.7)
+    open var backgroundColor: UIColor?
+    open var titleColor: UIColor? // = UIColor(yfHexValue: 0x2e2e2e)//UIColor(yfHexValue: 0xFFFFFF, alpha: 0.7)
     
     open var title: String? {
         get { return _title }
@@ -223,12 +223,9 @@ private class ActionControl: UIButton {
     
     convenience init(action: AlertAction) {
         self.init()
-        
         self.action = action
         
         setTitle(action.title, for: .normal)
-        setTitleColor(action.titleColor, for: .normal)
-        backgroundColor = action.backgroundColor
         
         addTarget(self, action: #selector(ActionControl.performAction), for: .touchUpInside)
     }
@@ -265,8 +262,32 @@ private class ActionControl: UIButton {
 open class AlertView: UIView {
     
     struct Metric {
-        static let backgroundColor: UIColor = UIColor(yfHexValue: 0x66C7FF)
-        static let titleBgColor: UIColor = UIColor(yfHexValue: 0x33A2FD, alpha: 0.7)
+        static func backgroundColor(with theme: Theme) -> UIColor {
+            switch theme {
+            case .white:
+                return UIColor(yfHexValue: 0xFFFFFF)
+            case .black:
+                return UIColor(yfHexValue: 0x3B3D3F)
+            }
+        }
+        
+        static func titleBgColor(with theme: Theme) -> UIColor {
+            switch theme {
+            case .white:
+                return UIColor(yfHexValue: 0xFFFFFF)
+            case .black:
+                return UIColor(yfHexValue: 0x3B3B3B)
+            }
+        }
+        
+        static func actionTitleColor(with theme: Theme) -> UIColor {
+            switch theme {
+            case .white:
+                return UIColor(yfHexValue: 0x3B3B3B)
+            case .black:
+                return UIColor(yfHexValue: 0xFFFFFF)
+            }
+        }
         
         static let titleFont = UIFont.boldSystemFont(ofSize: 16)
         static let textFont = UIFont.systemFont(ofSize: 14)
@@ -277,18 +298,23 @@ open class AlertView: UIView {
         static let actionHeight: CGFloat = 38
     }
     
-    public convenience init(title: String?, message: String?, preferredStyle: AlertStyle) {
+    public enum Theme {
+        case white
+        case black
+    }
+    
+    public convenience init(title: String?, message: String?, preferredStyle: AlertStyle = .actionSheet, theme: Theme = .white) {
         self.init()
         
         self.title = title
         self.message = message
         self.preferredStyle = preferredStyle
+        self.theme = theme
     }
     
     public init() {
         self.preferredStyle = .alert
         super.init(frame: CGRect.zero)
-        backgroundColor = Metric.backgroundColor
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -316,11 +342,13 @@ open class AlertView: UIView {
         return _textFields.isEmpty ? nil : _textFields
     }
     
-    open var title: String? {
+    open var title: String?
+    
+    open var message: String? {
         didSet { layoutUI() }
     }
     
-    open var message: String? {
+    open var theme: Theme = .white {
         didSet { layoutUI() }
     }
     
@@ -328,6 +356,8 @@ open class AlertView: UIView {
     
     func layoutUI() {
         subviews.forEach { $0.removeFromSuperview() }
+        
+        backgroundColor = Metric.backgroundColor(with: theme)
         
         let width = Metric.width
         let messageHeight = (message?.yf_size(titleFont: Metric.textFont, maxWidth: Metric.width).height) ?? 0 + 20
@@ -338,8 +368,8 @@ open class AlertView: UIView {
         let titleLable = UILabel()
         titleLable.text = title
         titleLable.textAlignment = .center
-        titleLable.backgroundColor = Metric.titleBgColor
-        titleLable.textColor = UIColor.white
+        titleLable.backgroundColor = Metric.titleBgColor(with: theme)
+        titleLable.textColor = theme == .black ? .white : UIColor(yfHexValue: 0x2e2e2e)
         titleLable.font = Metric.titleFont
         titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
         
@@ -350,7 +380,7 @@ open class AlertView: UIView {
         messageLable.text = message
         messageLable.font = Metric.textFont
         messageLable.numberOfLines = 0
-        messageLable.textColor = UIColor.white
+        messageLable.textColor = theme == .black ? .white : UIColor(yfHexValue: 0x454545)
         messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
         
         addSubview(messageLable)
@@ -364,7 +394,13 @@ open class AlertView: UIView {
         
         if actions.count == 2 {
             for (i, action) in actions.enumerated() {
-                let actionButton = ActionControl.init(action: action)
+                let actionButton = ActionControl(action: action)
+                
+                let titleColor = action.titleColor ?? Metric.actionTitleColor(with: theme)
+                let backgroundColor = action.backgroundColor ?? UIColor(yfHexValue: 0xFFFFFF, alpha: 0.3)
+                actionButton.setTitleColor(titleColor, for: .normal)
+                actionButton.backgroundColor = backgroundColor
+                
                 let actionWidth =  width / 2 - 0.5
                 let x = i == 0 ? actionWidth * CGFloat(i) : actionWidth * CGFloat(i) + 1
                 actionButton.frame = CGRect.init(x: x, y: lineY, width: actionWidth, height: Metric.actionHeight)
@@ -375,7 +411,7 @@ open class AlertView: UIView {
         }
         else {
             actions.forEach { (action) in
-                let actionButton = ActionControl.init(action: action)
+                let actionButton = ActionControl(action: action)
                 actionButton.frame = CGRect.init(x: 0, y: lineY, width: width, height: Metric.actionHeight)
                 
                 addSubview(actionButton)

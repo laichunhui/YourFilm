@@ -15,7 +15,7 @@ public protocol FilmDelegate: class {
 
 open class Film: NSObject {
     
-    weak var delegate: FilmDelegate?
+    public weak var delegate: FilmDelegate?
     
     fileprivate var endTimer: Timer?
         
@@ -27,6 +27,10 @@ open class Film: NSObject {
     open var scenery: Scenery
     
     let space: Space
+    
+    public var view: UIView {
+        return space
+    }
     
     let identifier = NSUUID().uuidString
     
