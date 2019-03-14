@@ -1,4 +1,4 @@
-<div align=center><img src="/YourFilm/Resources/YourFilm.png" width="200" height="64" /></div>
+<div align=center><img src="Resources/YourFilm.png" width="200" height="64" /></div>
 
 [![platform](https://img.shields.io/badge/platform-iOS-blue.svg?style=plastic)](#)
 [![languages](https://img.shields.io/badge/language-Swift-blue.svg)](#) 
@@ -13,8 +13,8 @@ YourFilm 是一个便利的，功能丰富的 iOS 视图窗口工具，她具备
 
 说明 | Gif |
 ----|------|
-文本效果<br/>  |  <img src="/yourFilm/Resources/showhud.gif" width="375" height="667"> |
-loading效果<br/>  |  <img src="/yourFilm/Resources/showLoading.gif" width="375" height="667"> |
+文本效果<br/>  |  <img src="Resources/showhud.gif" width="375" height="667"> |
+loading效果<br/>  |  <img src="Resources/showLoading.gif" width="375" height="667"> |
 
 
 ## 要求
