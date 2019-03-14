@@ -76,15 +76,16 @@ class ViewController: UIViewController {
     }
     
     @objc func showAlert() {
-        let alert = AlertView.init(title: "玻璃杯", message: "The beer foamed up and overflowed the glass", preferredStyle: .actionSheet, theme: .white)
+        //The beer foamed up and overflowed the glass
+        let alert = AlertView.init(title: "呼啦啦", message: "你觉得小五是傻逼吗？", preferredStyle: .actionSheet, theme: .white)
 
         alert.addTextField { (field) in
-            field.placeholder = "请输入啦啦啦"
+            field.placeholder = "请输入"
             field.borderStyle = .roundedRect
             field.font = UIFont.systemFont(ofSize: 14)
         }
         
-        let action = AlertAction(title: "确定", handler: { action in
+        let action = AlertAction(title: "确认", handler: { action in
             
             print("\(alert.textFields?.first?.text ?? "")")
         })
