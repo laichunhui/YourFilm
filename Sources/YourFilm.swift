@@ -110,7 +110,7 @@ public func showActivityIndicator(onView view: UIView? = nil
 }
 
 @discardableResult
-public func showLoading(image: UIImage, title: String?, onView view: UIView? = nil
+public func showLoading(image: UIImage, title: String?, scenery: Scenery = .default, onView view: UIView? = nil
     )
     -> Film
 {
@@ -118,8 +118,6 @@ public func showLoading(image: UIImage, title: String?, onView view: UIView? = n
     var plot = Plot.default
     plot.showTimeDuration = 12
     plot.rolePlayAnimation = Animation.continuousRotation
-    var scenery: Scenery = .default
-    scenery.stageEffect = .clean
     
     return Director.default.make(
         character,

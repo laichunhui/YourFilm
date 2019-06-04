@@ -68,7 +68,10 @@ class ViewController: UIViewController {
     
     @objc func showLoading() {
         let image = UIImage(named: "com_loading_red")!
-        YourFilm_Example.showLoading(image: image, title: "正在加载", onView: self.tableView)
+        var scene = Scenery.default
+        scene.stageEffect = .color(.white)
+        scene.spaceEffect = .color(UIColor.black.withAlphaComponent(0.5))
+        YourFilm_Example.showLoading(image: image, title: "正在加载",scenery: scene, onView: self.tableView)
     }
     
     @objc func showActivity() {
