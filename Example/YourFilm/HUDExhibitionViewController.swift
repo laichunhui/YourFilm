@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-
+//fix
 class HUDExhibitionViewController: UIViewController {
     let controlPanel = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
