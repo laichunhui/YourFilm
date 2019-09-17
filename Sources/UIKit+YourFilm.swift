@@ -8,13 +8,13 @@
 import UIKit
 
 public extension IntegerLiteralType {
-    public var f: CGFloat {
+    var f: CGFloat {
         return CGFloat(self)
     }
 }
 
 public extension FloatLiteralType {
-    public var f: CGFloat {
+    var f: CGFloat {
         return CGFloat(self)
     }
 }
