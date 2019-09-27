@@ -55,6 +55,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        let tap = UISwipeGestureRecognizer(target: self, action: #selector(showActivity))
+        self.view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +78,15 @@ class ViewController: UIViewController {
     }
     
     @objc func showActivity() {
-        showActivityIndicator(onView: self.tableView)
+        let view = UIView().then {
+            $0.backgroundColor = .red
+        }
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
+        var plot = Plot.default
+        plot.showTimeDuration = TimeInterval(Int.max)
+        plot.stageContentOffset = CGPoint(x: 30, y: 70)
+        YourFilm_Example.show(view, plot: plot)
+//        showActivityIndicator(onView: self.tableView)
     }
     
     @objc func showAlert() {

@@ -34,6 +34,7 @@ public func pin(
     -> Film
 {
     var plot = Plot.default
+    plot.willCurtainWhenTapSpace = false
     plot.showTimeDuration = TimeInterval(Int.max)
     return Director.default.make(
         character,
@@ -57,6 +58,8 @@ public func showText(
     scenery.stageEffect = .dim
     var plot = Plot.default
     plot.showTimeDuration = 2
+    plot.willCurtainWhenTapSpace = false
+    
     return Director.default.make(
         character,
         plot: plot,
@@ -78,6 +81,7 @@ public func showAlertView(_ alert: AlertView)
     default:
         plot.stagePisition = .center
     }
+    plot.willCurtainWhenTapSpace = false
     
     let scenery: Scenery = .default
     
@@ -98,6 +102,7 @@ public func showActivityIndicator(onView view: UIView? = nil
     let character = HUD(content: .activityIndicator)
     var plot = Plot.default
     plot.showTimeDuration = 12
+    plot.willCurtainWhenTapSpace = false
     var scenery: Scenery = .default
     scenery.stageEffect = .dim
     
@@ -117,6 +122,7 @@ public func showLoading(image: UIImage, title: String?, scenery: Scenery = .defa
     let character = HUD(content: .loading(image: image, title: title))
     var plot = Plot.default
     plot.showTimeDuration = 12
+    plot.willCurtainWhenTapSpace = false
     plot.rolePlayAnimation = Animation.continuousRotation
     
     return Director.default.make(

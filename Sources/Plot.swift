@@ -42,8 +42,12 @@ public struct Plot {
     public var disappearAnimation: CAAnimation?
     /// rolePlayAnimation 动画对象为 actor
     public var rolePlayAnimation: CAAnimation?
-    
+    /// 内容主体位置布局
     public var stagePisition: StagePosition = .center
+    /// 内容主体偏移量
+    public var stageContentOffset: CGPoint = CGPoint.zero
+    /// true时点击背景内容消失
+    public var willCurtainWhenTapSpace = true
     
     public static let `default`: Plot = {
         var plot = Plot()

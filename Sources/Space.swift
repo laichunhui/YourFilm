@@ -15,21 +15,20 @@ class Space: UIView {
         static let estimateMargin = 10.f
     }
     
+    var plot: Plot
     var stage: Stage
     var effect: SpaceEffectStyle
     
-    init(stage: Stage = Stage(), effect: SpaceEffectStyle) {
+    init(stage: Stage = Stage(), plot: Plot, effect: SpaceEffectStyle) {
         self.stage = stage
+        self.plot = plot
         self.effect = effect
         super.init(frame: CGRect.zero)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.stage = Stage()
-        self.effect = .clean
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
     
     fileprivate let backgroundView: UIView = {
@@ -56,7 +55,7 @@ class Space: UIView {
         
         let isShowFull = self.frame == UIScreen.main.bounds
         
-        switch stage.position {
+        switch plot.stagePisition {
         case .top:
             stage.center.x = center.x
             let topMargin = isShowFull ? Metric.screenTopBottomMargin : Metric.estimateMargin
@@ -76,6 +75,9 @@ class Space: UIView {
         default:
             stage.center = center
         }
+        
+        stage.center.x += plot.stageContentOffset.x
+        stage.center.y += plot.stageContentOffset.y
         
         backgroundView.frame = bounds
     }

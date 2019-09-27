@@ -204,7 +204,7 @@ open class AlertAction: NSObject {
     open var isEnabled: Bool = true
     
     open var backgroundColor: UIColor?
-    open var titleColor: UIColor? // = UIColor(yfHexValue: 0x2e2e2e)//UIColor(yfHexValue: 0xFFFFFF, alpha: 0.7)
+    open var titleColor: UIColor?
     
     open var title: String? {
         get { return _title }

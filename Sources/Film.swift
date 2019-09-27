@@ -35,11 +35,17 @@ open class Film: NSObject {
     let identifier = NSUUID().uuidString
     
     public init(character: Actor, plot: Plot, scenery: Scenery) {
-        
+       
         self.character = character
         self.plot = plot
         self.scenery = scenery
-        self.space = Space(effect: scenery.spaceEffect)
+        self.space = Space(plot: plot, effect: scenery.spaceEffect)
+        
+        super.init()
+        if plot.willCurtainWhenTapSpace {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(curtainCall))
+            self.space.addGestureRecognizer(tap)
+        }
     }
     
     open func opening() {
