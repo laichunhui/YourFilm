@@ -30,10 +30,6 @@ public protocol Actor {
     var classify: ActorClassify { get }
 }
 
-//public enum Action<Element> {
-//    case next(Element)
-//    case completed
-//}
 
 public protocol FilmProgressDelegate {
     
@@ -62,7 +58,7 @@ public enum HUDContent {
     case label(String?, textColor: UIColor)
     case activityIndicator
     case loading(image: UIImage, title: String?)
-    case progress
+    case progress(veil: ProgressRingVeil)
 }
 
 open class HUD: Actor {
@@ -75,19 +71,7 @@ open class HUD: Actor {
         
         static let edgePadding: CGFloat = 10
     }
-    
-    public var progressVeil: MagicVeil?
-    public var progress: Double = 0 {
-        didSet {
-            switch content {
-            case .progress:
-                progressVeil?.progress = progress
-            default:
-                break
-            }
-        }
-    }
-    
+
     public var content: HUDContent
     
     public init(content: HUDContent) {
@@ -130,7 +114,7 @@ open class HUD: Actor {
             label.numberOfLines = 3
             let padding: CGFloat = Metric.edgePadding
             label.frame = face.bounds.insetBy(dx: padding, dy: padding)
-            
+      
             face.addSubview(label)
             
         case .activityIndicator:
@@ -143,40 +127,37 @@ open class HUD: Actor {
             
             face.addSubview(activityIndicator)
             
-        case .progress:
-            face.frame.size = CGSize(width: 100.0, height: 100.0)
+        case .progress(let veil):
+            let veilSize = veil.frame.size
+            if veilSize.width <= 30 {
+                veil.frame.size = CGSize(width: 80.0, height: 80.0)
+            }
+            let realSize = veil.frame.size.width + 15
+            face.frame.size = CGSize(width: realSize, height: realSize)
+            veil.center = CGPoint(x: realSize / 2, y: realSize / 2)
             
-            let veil = MagicVeil()
-            veil.frame.size = CGSize(width: 80.0, height: 80.0)
-            veil.center = CGPoint(x: 50, y: 50)
-            veil.shouldShowGuide = true
-            veil.lineWidth = 3.0
-            veil.guideColor = UIColor.green
-            veil.guideLineWidth = 8.0
-            veil.colors = [UIColor.red, UIColor.black, UIColor.purple]
-            
-            progressVeil = veil
-            face.addSubview(progressVeil!)
-            
+            face.addSubview(veil)
+
         case let .loading(image, title):
-            face.frame.size = CGSize(width: 100.0, height: 80.0)
+            face.frame.size = CGSize(width: 100.0, height: 90.0)
            
             let imageLayer = CALayer()
             imageLayer.contents = image.cgImage
             let imageSize = min(image.size.width, 40)
-            imageLayer.frame = CGRect(x: 50 - imageSize / 2, y: 5, width: imageSize, height: imageSize)
+            imageLayer.frame = CGRect(x: 50 - imageSize / 2, y: 15, width: imageSize, height: imageSize)
             
             face.layer.addSublayer(imageLayer)
             self._animationLayer = imageLayer
             
             if let title = title {
                 let label = UILabel()
-                label.frame = CGRect(x: 0, y: 12 + imageSize, width: 100.0, height: 30.0)
+                label.frame = CGRect(x: 0, y: 5 + imageLayer.frame.maxY, width: 100.0, height: 30.0)
                 label.font = UIFont.systemFont(ofSize: 12)
                 label.textColor = UIColor(red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                 label.text = title
                 label.textAlignment = .center
                 label.numberOfLines = 2
+                
                 face.addSubview(label)
             }
         }
@@ -265,27 +246,27 @@ open class AlertView: UIView {
         static func backgroundColor(with theme: Theme) -> UIColor {
             switch theme {
             case .white:
-                return UIColor(yfHexValue: 0xFFFFFF)
+                return 0xFFFFFF.color
             case .black:
-                return UIColor(yfHexValue: 0x3B3D3F)
+                return 0x3B3D3F.color
             }
         }
         
         static func titleBgColor(with theme: Theme) -> UIColor {
             switch theme {
             case .white:
-                return UIColor(yfHexValue: 0xFFFFFF)
+                return 0xFFFFFF.color
             case .black:
-                return UIColor(yfHexValue: 0x3B3B3B)
+                return 0x3B3B3B.color
             }
         }
         
         static func actionTitleColor(with theme: Theme) -> UIColor {
             switch theme {
             case .white:
-                return UIColor(yfHexValue: 0x3B3B3B)
+                return 0x3B3B3B.color
             case .black:
-                return UIColor(yfHexValue: 0xFFFFFF)
+                return 0xFFFFFF.color
             }
         }
         
@@ -369,7 +350,7 @@ open class AlertView: UIView {
         titleLable.text = title
         titleLable.textAlignment = .center
         titleLable.backgroundColor = Metric.titleBgColor(with: theme)
-        titleLable.textColor = theme == .black ? .white : UIColor(yfHexValue: 0x2e2e2e)
+        titleLable.textColor = theme == .black ? .white : 0x2e2e2e.color
         titleLable.font = Metric.titleFont
         titleLable.frame = CGRect.init(x: 0, y: 0, width: width, height: titleHeight)
         
@@ -378,9 +359,10 @@ open class AlertView: UIView {
         
         let messageLable = UILabel()
         messageLable.text = message
+        messageLable.textAlignment = .center
         messageLable.font = Metric.textFont
         messageLable.numberOfLines = 0
-        messageLable.textColor = theme == .black ? .white : UIColor(yfHexValue: 0x454545)
+        messageLable.textColor = theme == .black ? .white : 0x454545.color
         messageLable.frame = CGRect.init(x: 16, y: lineY, width: width-32, height: messageHeight)
         
         addSubview(messageLable)
@@ -397,7 +379,7 @@ open class AlertView: UIView {
                 let actionButton = ActionControl(action: action)
                 
                 let titleColor = action.titleColor ?? Metric.actionTitleColor(with: theme)
-                let backgroundColor = action.backgroundColor ?? UIColor(yfHexValue: 0xFFFFFF, alpha: 0.3)
+                let backgroundColor = action.backgroundColor ?? 0xFFFFFF.color.alpha( 0.3)
                 actionButton.setTitleColor(titleColor, for: .normal)
                 actionButton.backgroundColor = backgroundColor
                 

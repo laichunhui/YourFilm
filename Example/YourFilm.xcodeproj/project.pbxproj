@@ -15,13 +15,15 @@
 		04CAACEC212E9B72000DE8CE /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE0212E9B72000DE8CE /* Stage.swift */; };
 		04CAACEE212E9B72000DE8CE /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE2212E9B72000DE8CE /* Actor.swift */; };
 		04CAACEF212E9B72000DE8CE /* YourFilm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE3212E9B72000DE8CE /* YourFilm.swift */; };
-		04CAACF0212E9B72000DE8CE /* MagicVeil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE5212E9B72000DE8CE /* MagicVeil.swift */; };
 		04CAACF1212E9B72000DE8CE /* Director.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACE6212E9B72000DE8CE /* Director.swift */; };
 		04CAACF8212FAA4E000DE8CE /* HUDExhibitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACF7212FAA4E000DE8CE /* HUDExhibitionViewController.swift */; };
 		04CAACFB212FAB8A000DE8CE /* RGBColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACFA212FAB8A000DE8CE /* RGBColorSelector.swift */; };
 		04CAACFD212FABBD000DE8CE /* RGBColorSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CAACFC212FABBD000DE8CE /* RGBColorSelector.xib */; };
 		04CAACFF212FDEC6000DE8CE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CAACFE212FDEC6000DE8CE /* Helper.swift */; };
 		1C48480D21F96DC20028B8FD /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C48480C21F96DC20028B8FD /* Animations.swift */; };
+		374FA3682473BF2A000A9B2D /* RingVeil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FA3672473BF2A000A9B2D /* RingVeil.swift */; };
+		374FA36A2473BF3E000A9B2D /* RingVeilLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FA3692473BF3E000A9B2D /* RingVeilLayer.swift */; };
+		374FA36C2473C74B000A9B2D /* ProgressRingVeil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FA36B2473C74B000A9B2D /* ProgressRingVeil.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -39,7 +41,6 @@
 		04CAACE0212E9B72000DE8CE /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		04CAACE2212E9B72000DE8CE /* Actor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		04CAACE3212E9B72000DE8CE /* YourFilm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourFilm.swift; sourceTree = "<group>"; };
-		04CAACE5212E9B72000DE8CE /* MagicVeil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagicVeil.swift; sourceTree = "<group>"; };
 		04CAACE6212E9B72000DE8CE /* Director.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Director.swift; sourceTree = "<group>"; };
 		04CAACF7212FAA4E000DE8CE /* HUDExhibitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDExhibitionViewController.swift; sourceTree = "<group>"; };
 		04CAACFA212FAB8A000DE8CE /* RGBColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColorSelector.swift; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		04CAACFE212FDEC6000DE8CE /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1A82935F923A40350923662A /* Pods-YourFilm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourFilm_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourFilm_Tests/Pods-YourFilm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C48480C21F96DC20028B8FD /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		374FA3672473BF2A000A9B2D /* RingVeil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingVeil.swift; sourceTree = "<group>"; };
+		374FA3692473BF3E000A9B2D /* RingVeilLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingVeilLayer.swift; sourceTree = "<group>"; };
+		374FA36B2473C74B000A9B2D /* ProgressRingVeil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingVeil.swift; sourceTree = "<group>"; };
 		3BB264DBE8083780D9A7F83C /* Pods_YourFilm_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourFilm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CDA2CFECA6A26C83EBD83D /* YourFilm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YourFilm.podspec; path = ../YourFilm.podspec; sourceTree = "<group>"; };
 		5C2C2E18EA42064BB14394B9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -100,7 +104,9 @@
 		04CAACE4212E9B72000DE8CE /* Veils */ = {
 			isa = PBXGroup;
 			children = (
-				04CAACE5212E9B72000DE8CE /* MagicVeil.swift */,
+				374FA3672473BF2A000A9B2D /* RingVeil.swift */,
+				374FA36B2473C74B000A9B2D /* ProgressRingVeil.swift */,
+				374FA3692473BF3E000A9B2D /* RingVeilLayer.swift */,
 			);
 			path = Veils;
 			sourceTree = "<group>";
@@ -305,7 +311,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-YourFilm_Example/Pods-YourFilm_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-YourFilm_Example/Pods-YourFilm_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 			);
@@ -316,7 +322,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YourFilm_Example/Pods-YourFilm_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YourFilm_Example/Pods-YourFilm_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -327,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04CAACF1212E9B72000DE8CE /* Director.swift in Sources */,
+				374FA36C2473C74B000A9B2D /* ProgressRingVeil.swift in Sources */,
 				04CAACF8212FAA4E000DE8CE /* HUDExhibitionViewController.swift in Sources */,
 				04CAACE9212E9B72000DE8CE /* Scenery.swift in Sources */,
 				04CAACEF212E9B72000DE8CE /* YourFilm.swift in Sources */,
@@ -337,11 +344,12 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				04CAACEB212E9B72000DE8CE /* UIKit+YourFilm.swift in Sources */,
 				04CAACEA212E9B72000DE8CE /* Plot.swift in Sources */,
+				374FA36A2473BF3E000A9B2D /* RingVeilLayer.swift in Sources */,
 				04CAACFB212FAB8A000DE8CE /* RGBColorSelector.swift in Sources */,
 				04CAACE7212E9B72000DE8CE /* Space.swift in Sources */,
 				04CAACEE212E9B72000DE8CE /* Actor.swift in Sources */,
+				374FA3682473BF2A000A9B2D /* RingVeil.swift in Sources */,
 				1C48480D21F96DC20028B8FD /* Animations.swift in Sources */,
-				04CAACF0212E9B72000DE8CE /* MagicVeil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

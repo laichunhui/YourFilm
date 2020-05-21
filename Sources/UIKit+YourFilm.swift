@@ -19,6 +19,21 @@ public extension FloatLiteralType {
     }
 }
 
+
+/**
+ A private extension to CGFloat in order to provide simple
+ conversion from degrees to radians, used when drawing the rings.
+ */
+extension CGFloat {
+    var rads: CGFloat { return self * CGFloat.pi / 180 }
+}
+
+/// adds simple conversion to TimeInterval
+extension CGFloat {
+    var interval: TimeInterval { return TimeInterval(self) }
+}
+
+
 extension Array {
     
     ///Element at the given index if it exists.
@@ -41,22 +56,35 @@ extension String {
     }
 }
 
-extension UIColor {
-    convenience init(yfHexValue: UInt, alpha: CGFloat = 1.0) {
-        self.init(
-            red: CGFloat((yfHexValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((yfHexValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(yfHexValue & 0x0000FF) / 255.0,
-            alpha: alpha
-        )
+
+
+extension Int {
+    public var color: UIColor {
+        let red = CGFloat(self as Int >> 16 & 0xff) / 255
+        let green = CGFloat(self >> 8 & 0xff) / 255
+        let blue  = CGFloat(self & 0xff) / 255
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
-    
-    convenience init(yfHexValue: UInt) {
-        self.init(
-            red: CGFloat((yfHexValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((yfHexValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(yfHexValue & 0x0000FF) / 255.0,
-            alpha: 1.0
-        )
+}
+
+extension UIColor {
+    public func alpha(_ alpha: CGFloat) -> UIColor {
+        return withAlphaComponent(alpha)
+    }
+}
+
+
+/// Helper extension to allow removing layer animation based on AnimationKeys enum
+extension CALayer {
+    func removeAnimation(forKey key: RingVeil.AnimationKeys) {
+        removeAnimation(forKey: key.rawValue)
+    }
+
+    func animation(forKey key: RingVeil.AnimationKeys) -> CAAnimation? {
+        return animation(forKey: key.rawValue)
+    }
+
+    func value(forKey key: RingVeil.AnimationKeys) -> Any? {
+        return value(forKey: key.rawValue)
     }
 }

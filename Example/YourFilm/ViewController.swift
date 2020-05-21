@@ -13,12 +13,15 @@ typealias MenuAction = (title: String, action: Selector)
 
 class ViewController: UIViewController {
     
+    var timer: Timer?
+    
     var datasource: [MenuAction] {
         return [
             (title: "showHUD", action: #selector(ViewController.showHUD)),
             (title: "showAlert", action: #selector(ViewController.showAlert)),
             (title: "showActivity", action: #selector(ViewController.showActivity)),
-            (title: "showLoading", action: #selector(ViewController.showLoading))
+            (title: "showLoading", action: #selector(ViewController.showLoading)),
+            (title: "showProgress", action: #selector(ViewController.showProgress))
         ]
     }
     
@@ -26,7 +29,7 @@ class ViewController: UIViewController {
         let tableView = UITableView.init(frame: CGRect.zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = UIColor(yfHexValue: 0x3B3B3B)
+        tableView.backgroundColor = 0x3B3B3B.color
         tableView.separatorStyle = .none
 
         return tableView
@@ -78,30 +81,63 @@ class ViewController: UIViewController {
     }
     
     @objc func showActivity() {
-        let view = UIView().then {
-            $0.backgroundColor = .red
+//        let view = UIView().then {
+//            $0.backgroundColor = .red
+//        }
+//        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
+//        var plot = Plot.default
+//        plot.showTimeDuration = TimeInterval(Int.max)
+//        plot.stageContentOffset = CGPoint(x: 30, y: 70)
+//        YourFilm_Example.show(view, plot: plot)
+        showActivityIndicator(onView: self.tableView)
+    }
+    
+    @objc func showProgress() {
+        var progress = 0.f
+        
+        let veil = ProgressRingVeil()
+//        veil.frame.size = CGSize(width: 150, height: 150)
+        veil.maxValue = 1
+        veil.innerRingColor = 0x3377FF.color
+//        actor.gradientOptions = UICircularRingGradientOptions.default
+        veil.outerRingColor = 0x999999.color
+        
+        let actor = HUD(content: HUDContent.progress(veil: veil))
+        var scene = Scenery.default
+        scene.stageEffect = .color(.white)
+        scene.spaceEffect = .color(UIColor.black.withAlphaComponent(0.5))
+        YourFilm_Example.pin(actor, scenery: scene, onView: self.tableView)
+
+        if #available(iOS 10.0, *) {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (_) in
+
+                progress += 0.05
+                veil.startProgress(to: progress, duration: 0.1)
+             
+                if progress > 1 {
+                    self?.timer?.invalidate()
+                    self?.timer = nil
+                }
+            })
+
+        } else {
+
         }
-        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
-        var plot = Plot.default
-        plot.showTimeDuration = TimeInterval(Int.max)
-        plot.stageContentOffset = CGPoint(x: 30, y: 70)
-        YourFilm_Example.show(view, plot: plot)
-//        showActivityIndicator(onView: self.tableView)
     }
     
     @objc func showAlert() {
         //The beer foamed up and overflowed the glass
-        let alert = AlertView.init(title: "呼啦啦", message: "你觉得小五是傻逼吗？", preferredStyle: .actionSheet, theme: .white)
+        let alert = AlertView.init(title: "伤痛千万次", message: "那就这样吧，别离便去吧。发发呆反弹规范化发过火发给回复听光辉天誉花园 和太阳花一体化拖后腿好讨厌。", preferredStyle: .actionSheet, theme: .white)
 
-        alert.addTextField { (field) in
-            field.placeholder = "请输入"
-            field.borderStyle = .roundedRect
-            field.font = UIFont.systemFont(ofSize: 14)
-        }
-        
+//        alert.addTextField { (field) in
+//            field.placeholder = "请输入"
+//            field.borderStyle = .roundedRect
+//            field.font = UIFont.systemFont(ofSize: 14)
+//        }
+        0x999999.color.alpha(0.5)
         let action = AlertAction(title: "确认", handler: { action in
             
-            print("\(alert.textFields?.first?.text ?? "")")
+//            print("\(alert.textFields?.first?.text ?? "")")
         })
         alert.addAction(action)
         var cancelBlock: (() -> Void)?
