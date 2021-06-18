@@ -10,9 +10,7 @@ import UIKit
 
 class Space: UIView {
     struct Metric {
-        static let screenTopBottomMargin = 50.f
-        static let screemLeftRightMargin = 30.f
-        static let estimateMargin = 10.f
+        static let estimateMargin = 15.f
     }
     
     var plot: Plot
@@ -50,39 +48,63 @@ class Space: UIView {
         addSubview(stage)
     }
     
-    internal override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let isShowFull = self.frame == UIScreen.main.bounds
-        
-        switch plot.stagePisition {
-        case .top:
-            stage.center.x = center.x
-            let topMargin = isShowFull ? Metric.screenTopBottomMargin : Metric.estimateMargin
-            stage.center.y = topMargin
-        case .bottom:
-            stage.center.x = center.x
-            let bottomMargin = isShowFull ? Metric.screenTopBottomMargin : Metric.estimateMargin
-            stage.center.y = UIScreen.main.bounds.size.height - stage.frame.height - bottomMargin
-        case .left:
-            let leftMargin = isShowFull ? Metric.screemLeftRightMargin : Metric.estimateMargin
-            stage.frame.origin.x = leftMargin
-            stage.center.y = center.y
-        case .right:
-            let rightMargin = isShowFull ? Metric.screemLeftRightMargin : Metric.estimateMargin
-            stage.frame.origin.x = frame.width - rightMargin - stage.frame.width
-            stage.center.y = center.y
-        default:
-            stage.center = center
-        }
-        
-        stage.center.x += plot.stageContentOffset.x
-        stage.center.y += plot.stageContentOffset.y
-        
-        backgroundView.frame = bounds
-    }
-
     func clearUp() {
         removeFromSuperview()
+    }
+    
+    override func updateConstraints() {
+        let isShowFull = self.frame == UIScreen.main.bounds
+        var top = isShowFull ? Metric.estimateMargin : 0
+        top += plot.stageContentOffset.y
+        if #available(iOS 11.0, *) {
+            top += self.safeAreaInsets.top
+        }
+        
+        var bottom = isShowFull ? -Metric.estimateMargin : 0
+        bottom += plot.stageContentOffset.y
+        if #available(iOS 11.0, *) {
+            bottom -= self.safeAreaInsets.bottom
+        }
+        
+        stage.translatesAutoresizingMaskIntoConstraints = false
+        switch plot.stagePisition {
+        case .top:
+            NSLayoutConstraint.activate([
+                stage.topAnchor.constraint(equalTo: self.topAnchor, constant: top),
+                stage.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: plot.stageContentOffset.x)
+            ])
+        case .bottom:
+            NSLayoutConstraint.activate([
+                stage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottom),
+                stage.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: plot.stageContentOffset.x)
+            ])
+        case .left:
+            let left = isShowFull ? Metric.estimateMargin : 0
+            NSLayoutConstraint.activate([
+                stage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: plot.stageContentOffset.y),
+                stage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: left + plot.stageContentOffset.x)
+            ])
+        case .right:
+            let right = isShowFull ? -Metric.estimateMargin : 0
+            NSLayoutConstraint.activate([
+                stage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: plot.stageContentOffset.y),
+                stage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: right + plot.stageContentOffset.x)
+            ])
+        default:
+            NSLayoutConstraint.activate([
+                stage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: plot.stageContentOffset.y),
+                stage.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: plot.stageContentOffset.x),
+            ])
+        }
+        
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0.0),
+            backgroundView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0.0),
+            backgroundView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0.0),
+            backgroundView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0.0),
+        ])
+        
+        super.updateConstraints()
     }
 }

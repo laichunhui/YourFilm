@@ -48,11 +48,12 @@ public func pin(
 public func showText(
     _ text: String,
     textColor: UIColor = .white,
+    font: UIFont? = nil,
     onView view: UIView? = nil
     )
     -> Film
 {
-    let character = HUD.init(content: HUDContent.label(text, textColor: textColor))
+    let character = HUD.init(content: HUDContent.label(text, textColor: textColor, font: font))
     var scenery = Scenery()
     scenery.spaceEffect = .clean
     scenery.stageEffect = .dim

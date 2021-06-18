@@ -27,8 +27,16 @@ open class Director {
         films.append(newfilm)
         
         if let view: UIView = view ?? UIApplication.shared.keyWindow {
-            newfilm.space.frame = view.bounds
             view.addSubview(newfilm.space)
+            newfilm.space.frame = view.bounds
+            
+            newfilm.space.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                newfilm.space.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0),
+                newfilm.space.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0),
+                newfilm.space.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0.0),
+                newfilm.space.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 0.0),
+            ])
             newfilm.opening()
         }
         return newfilm

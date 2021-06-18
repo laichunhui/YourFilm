@@ -48,10 +48,13 @@ class ViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuCell")
         view.addSubview(tableView)
         
-        tableView.frame = view.bounds
+        tableView.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
         rightItem.addTarget(self, action: #selector(ViewController.cleanAll), for: .touchUpInside)
+
     }
     
 
@@ -77,17 +80,18 @@ class ViewController: UIViewController {
         var scene = Scenery.default
         scene.stageEffect = .color(.white)
         scene.spaceEffect = .color(UIColor.black.withAlphaComponent(0.5))
-        YourFilm_Example.showLoading(image: image, title: "正在加载",scenery: scene, onView: self.tableView)
+        YourFilm_Example.showLoading(image: image, title: "正在加载",scenery: scene, onView: self.view)
     }
     
     @objc func showActivity() {
 //        let view = UIView().then {
-//            $0.backgroundColor = .red
+//            $0.backgroundColor = .green
 //        }
 //        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
 //        var plot = Plot.default
 //        plot.showTimeDuration = TimeInterval(Int.max)
-//        plot.stageContentOffset = CGPoint(x: 30, y: 70)
+//        plot.stagePisition = .top
+//        plot.stageContentOffset = CGPoint(x: -15, y: 200)
 //        YourFilm_Example.show(view, plot: plot)
         showActivityIndicator(onView: self.tableView)
     }
@@ -96,10 +100,8 @@ class ViewController: UIViewController {
         var progress = 0.f
         
         let veil = ProgressRingVeil()
-//        veil.frame.size = CGSize(width: 150, height: 150)
         veil.maxValue = 1
         veil.innerRingColor = 0x3377FF.color
-//        actor.gradientOptions = UICircularRingGradientOptions.default
         veil.outerRingColor = 0x999999.color
         
         let actor = HUD(content: HUDContent.progress(veil: veil))
@@ -134,7 +136,7 @@ class ViewController: UIViewController {
 //            field.borderStyle = .roundedRect
 //            field.font = UIFont.systemFont(ofSize: 14)
 //        }
-        0x999999.color.alpha(0.5)
+
         let action = AlertAction(title: "确认", handler: { action in
             
 //            print("\(alert.textFields?.first?.text ?? "")")

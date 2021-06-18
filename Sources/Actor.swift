@@ -55,7 +55,7 @@ extension UIView: Actor {
 
 //MARK: - HUD
 public enum HUDContent {
-    case label(String?, textColor: UIColor)
+    case label(String?, textColor: UIColor = .white, font: UIFont? = nil)
     case activityIndicator
     case loading(image: UIImage, title: String?)
     case progress(veil: ProgressRingVeil)
@@ -99,7 +99,7 @@ open class HUD: Actor {
         face.contentMode = .center
         
         switch self.content {
-        case .label(let text, let color):
+        case .label(let text, let color, let font):
         
             let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 80) ?? CGSize.zero
             let height = min(Metric.maxContentHeight, max(textSize.height + Metric.edgePadding * 2, Metric.minContentHeight))
@@ -107,7 +107,7 @@ open class HUD: Actor {
             
             let label = UILabel()
             label.textAlignment = .center
-            label.font = Metric.labelTextFont
+            label.font = font ?? Metric.labelTextFont
             label.text = text
             label.textColor = color
             label.adjustsFontSizeToFitWidth = true

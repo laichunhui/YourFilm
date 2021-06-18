@@ -49,7 +49,6 @@ open class Film: NSObject {
     }
     
     open func opening() {
-        space.stage.position = plot.stagePisition
         space.stage.display(character, effect: scenery.stageEffect)
         delegate?.filmDidStart(self)
         

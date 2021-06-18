@@ -17,7 +17,7 @@ public protocol StageAble {
 }
 
 class Stage: UIVisualEffectView {
-    var position: StagePosition = .center
+    var character: Actor?
     
     internal init() {
         super.init(effect: UIBlurEffect(style: .light))
@@ -30,7 +30,6 @@ class Stage: UIVisualEffectView {
     }
     
     fileprivate func commonInit() {
-
         layer.cornerRadius = 4.0
         layer.masksToBounds = true
        
@@ -50,6 +49,7 @@ class Stage: UIVisualEffectView {
     }
     
     func display(_ character: Actor, effect: StageEffectStyle) {
+        self.character = character
         self.contentView.subviews.forEach {
             $0.removeFromSuperview()
         }
@@ -67,9 +67,28 @@ class Stage: UIVisualEffectView {
             self.effect = nil
             self.contentView.backgroundColor = .clear
         }
-        
-        frame.size = character.face.bounds.size
         contentView.addSubview(character.face)
+    }
+    
+    override func updateConstraints() {
+        guard let character = self.character else {
+            return
+        }
+        let width = character.face.frame.width
+        let height = character.face.frame.height
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        let widthConstraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width)
+        self.addConstraint(widthConstraint)
+        let heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
+        self.addConstraint(heightConstraint)
+        
+        super.updateConstraints()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print(self.frame.origin)
     }
 }
 

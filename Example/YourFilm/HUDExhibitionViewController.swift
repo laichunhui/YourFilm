@@ -107,7 +107,8 @@ class HUDExhibitionViewController: UIViewController {
     }
     
     @objc func showHUD() {
-        let character = HUD.init(content: HUDContent.label("为了更美好的明天而战~~~~~~", textColor: .white))
+        let font = UIFont(name: "Courier-Oblique", size: 14)
+        let character = HUD.init(content: HUDContent.label("为了更美好的明天而战~~~~~~", textColor: .white, font: font))
         
         var scenery = Scenery()
         scenery.spaceEffect = .color(faceBgColorSelector.color)
