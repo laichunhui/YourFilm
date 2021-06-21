@@ -46,10 +46,15 @@ open class Director {
         currentFilm?.curtainCall()
     }
     
-    public func cleanFilms(with actorClassify: ActorClassify) {
+    public func cleanFilms(with actorClassify: ActorClassify, in view: UIView? = nil) {
         films.filter { $0.character.classify == actorClassify  }
             .forEach { (film) in
-                film.curtainCall()
+                if let view = view, film.space.superview === view {
+                    film.curtainCall()
+                }
+                else {
+                    film.curtainCall()
+                }
         }
     }
     

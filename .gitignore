@@ -1,3 +1,4 @@
+**/Example/.DS_Store
 .DS_Store
 # Xcode
 #
@@ -45,7 +46,6 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 Pods/
-*.podspec
 
 # Carthage
 #

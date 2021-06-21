@@ -139,8 +139,8 @@ public func cleanAllFilms() {
     Director.default.cleanAllFilms()
 }
 
-
-public func cleanFilms(with actorClassify: ActorClassify) {
-    Director.default.cleanFilms(with: actorClassify)
+public func cleanFilms(with actorClassify: ActorClassify, in view: UIView? = nil) {
+    Director.default.cleanFilms(with: actorClassify, in: view)
 }
+
 
