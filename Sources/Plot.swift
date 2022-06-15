@@ -36,6 +36,7 @@ public enum StagePosition {
 }
 
 public struct Plot {
+    public var stageCornerRadius: CGFloat = 12
     public var showTimeDuration: TimeInterval = 2.0
     /// appearAnimation 和 disappearAnimation 动画对象为 stage
     public var appearAnimation: CAAnimation?
@@ -53,14 +54,31 @@ public struct Plot {
         var plot = Plot()
         plot.showTimeDuration = 2.0
         
-        let appear = CATransition()
-        appear.type = CATransitionType.reveal
-        appear.duration = 0.2
-        plot.appearAnimation = appear
+        let popAnimation = CAKeyframeAnimation.init(keyPath: "transform")
+        popAnimation.duration = 0.3
+        popAnimation.values = [NSValue.init(caTransform3D: CATransform3DMakeScale(0.5, 0.5, 1.0)),
+                               NSValue.init(caTransform3D: CATransform3DMakeScale(1.1, 1.1, 1.0)),
+                               NSValue.init(caTransform3D: CATransform3DMakeScale(0.9, 0.9, 1.0)),
+                               NSValue.init(caTransform3D: CATransform3DIdentity)]
+        popAnimation.keyTimes = [NSNumber.init(value: 0.0),
+                                 NSNumber.init(value: 0.5),
+                                 NSNumber.init(value: 0.75),
+                                 NSNumber.init(value: 1.0)]
+        popAnimation.timingFunctions = [CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut),
+                                        CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut),
+                                        CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        plot.appearAnimation = popAnimation
         
-        let disappear = CATransition()
-        disappear.duration = 0.1
-        disappear.type = CATransitionType.fade
+        
+        let disappear = CAKeyframeAnimation.init(keyPath: "transform")
+        disappear.duration = 0.25
+        disappear.values = [NSValue.init(caTransform3D: CATransform3DIdentity),
+                               NSValue.init(caTransform3D: CATransform3DMakeScale(0.01, 0.01, 1.0))]
+        disappear.keyTimes = [NSNumber.init(value: 0.0), NSNumber.init(value: 1.0)]
+        disappear.timingFunctions = [CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut),
+                                        CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)]
+        disappear.fillMode = .forwards
+        disappear.isRemovedOnCompletion = false
         plot.disappearAnimation = disappear
         
         return plot

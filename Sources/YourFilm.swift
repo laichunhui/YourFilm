@@ -70,18 +70,14 @@ public func showText(
 }
 
 @discardableResult
-public func showAlertView(_ alert: AlertView)
+public func showAlertView(_ alert: Alert)
     -> Film
 {
     let character = alert
     var plot = Plot.default
     plot.showTimeDuration = TimeInterval(Int.max)
-    switch alert.preferredStyle {
-    case .actionSheet:
-        plot.stagePisition = .bottom
-    default:
-        plot.stagePisition = .center
-    }
+    plot.stagePisition = .center
+    
     plot.willCurtainWhenTapSpace = false
     
     let scenery: Scenery = .default

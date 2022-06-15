@@ -63,4 +63,26 @@ public final class Animation {
         animation.repeatCount = Float(INT_MAX)
         return animation
     }()
+    
+    static let opacityShow: CAAnimation = {
+        let opacityAnimation = CABasicAnimation.init(keyPath: "opacity")
+        opacityAnimation.fromValue = NSNumber.init(value: 0.3)
+        opacityAnimation.toValue = NSNumber.init(value: 1)
+        opacityAnimation.duration = 0.25
+        opacityAnimation.fillMode = .forwards
+        opacityAnimation.isRemovedOnCompletion = false
+        
+        return opacityAnimation
+    }()
+    
+    static let opacityHidden: CAAnimation = {
+        let opacityAnimation = CABasicAnimation.init(keyPath: "opacity")
+        opacityAnimation.fromValue = NSNumber.init(value: 1)
+        opacityAnimation.toValue = NSNumber.init(value: 0)
+        opacityAnimation.duration = 0.25
+        opacityAnimation.fillMode = .forwards
+        opacityAnimation.isRemovedOnCompletion = false
+        
+        return opacityAnimation
+    }()
 }

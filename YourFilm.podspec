@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "YourFilm"
-  spec.version      = "0.4.1"
+  spec.version      = "0.5.0"
   spec.summary      = "custom HUD, is YourFilm."
   spec.description  = <<-DESC 
   custom HUD, make toast more elegant, more multifunction, you 
@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   # spec.platform     = :ios
-  spec.platform     = :ios, "9.0"
+  spec.platform     = :ios, "11.0"
   spec.swift_version = '5.0'
   spec.source       = { :git => "https://github.com/laichunhui/YourFilm.git", :tag => "#{spec.version}" }
   spec.source_files  = 'Sources/**/*.{swift, h}'

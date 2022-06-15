@@ -30,9 +30,6 @@ class Stage: UIVisualEffectView {
     }
     
     fileprivate func commonInit() {
-        layer.cornerRadius = 4.0
-        layer.masksToBounds = true
-       
         let offset = 20.0
         let motionEffectsX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
         motionEffectsX.maximumRelativeValue = offset
@@ -88,7 +85,6 @@ class Stage: UIVisualEffectView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print(self.frame.origin)
     }
 }
 

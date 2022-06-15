@@ -19,7 +19,6 @@ public extension FloatLiteralType {
     }
 }
 
-
 /**
  A private extension to CGFloat in order to provide simple
  conversion from degrees to radians, used when drawing the rings.
@@ -33,9 +32,7 @@ extension CGFloat {
     var interval: TimeInterval { return TimeInterval(self) }
 }
 
-
 extension Array {
-    
     ///Element at the given index if it exists.
     func yf_Element(at index: Int) -> Element? {
         
@@ -56,8 +53,6 @@ extension String {
     }
 }
 
-
-
 extension Int {
     public var color: UIColor {
         let red = CGFloat(self as Int >> 16 & 0xff) / 255
@@ -72,7 +67,6 @@ extension UIColor {
         return withAlphaComponent(alpha)
     }
 }
-
 
 /// Helper extension to allow removing layer animation based on AnimationKeys enum
 extension CALayer {

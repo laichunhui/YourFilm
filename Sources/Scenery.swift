@@ -27,7 +27,7 @@ public struct Scenery {
 
     public var spaceEffect: SpaceEffectStyle = .clean
     
-    public var stageEffect: StageEffectStyle = .blur
+    public var stageEffect: StageEffectStyle = .clean
 
     init(spaceEffect: SpaceEffectStyle = .clean, stageEffect: StageEffectStyle = .blur) {
         self.spaceEffect = spaceEffect

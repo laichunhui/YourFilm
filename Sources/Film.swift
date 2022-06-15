@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol FilmDelegate: class {
+public protocol FilmDelegate: AnyObject {
     func filmDidStart(_ film: Film)
     func filmDidEnd(_ film: Film)
 }
@@ -51,11 +51,11 @@ open class Film: NSObject {
     open func opening() {
         space.stage.display(character, effect: scenery.stageEffect)
         delegate?.filmDidStart(self)
-        
+    
+        space.layer.add(Animation.opacityShow, forKey: "opacityAniamtion")
         if let appearAnim = plot.appearAnimation {
             space.stage.layer.add(appearAnim, forKey: "appearAnimation")
         }
-        
         if let rolePlayAnimation = plot.rolePlayAnimation {
             character.animationLayer?.add(rolePlayAnimation, forKey: "rolePlayAnimation")
         }
@@ -66,6 +66,7 @@ open class Film: NSObject {
     }
     
     @objc open func curtainCall() {
+        space.layer.add(Animation.opacityHidden, forKey: "opacityAniamtion")
         if let disappearAnim = plot.disappearAnimation {
             disappearAnim.delegate = self
             space.stage.layer.add(disappearAnim, forKey: "disappearAnimation")

@@ -19,9 +19,11 @@ class ViewController: UIViewController {
         return [
             (title: "showHUD", action: #selector(ViewController.showHUD)),
             (title: "showAlert", action: #selector(ViewController.showAlert)),
+            (title: "showSheet", action: #selector(ViewController.showSheet)),
             (title: "showActivity", action: #selector(ViewController.showActivity)),
             (title: "showLoading", action: #selector(ViewController.showLoading)),
-            (title: "showProgress", action: #selector(ViewController.showProgress))
+            (title: "showProgress", action: #selector(ViewController.showProgress)),
+            (title: "showCustomView", action: #selector(ViewController.showCustomView))
         ]
     }
     
@@ -128,29 +130,80 @@ class ViewController: UIViewController {
     }
     
     @objc func showAlert() {
-        //The beer foamed up and overflowed the glass
-        let alert = AlertView.init(title: "伤痛千万次", message: "那就这样吧，别离便去吧。发发呆反弹规范化发过火发给回复听光辉天誉花园 和太阳花一体化拖后腿好讨厌。", preferredStyle: .actionSheet, theme: .white)
-
-//        alert.addTextField { (field) in
-//            field.placeholder = "请输入"
-//            field.borderStyle = .roundedRect
-//            field.font = UIFont.systemFont(ofSize: 14)
-//        }
-
-        let action = AlertAction(title: "确认", handler: { action in
-            
-//            print("\(alert.textFields?.first?.text ?? "")")
-        })
-        alert.addAction(action)
+        var config = AlertConfig.default
+        config.titleFont = UIFont.boldSystemFont(ofSize: 18)
+        config.textFont = UIFont.systemFont(ofSize: 13)
+        let alert = Alert.init(title: "伤痛千万次", message: "那就这样吧，别离便去吧。发发呆反弹规范化发过火发给回复听光辉天誉花园 和太阳花一体化拖后腿好讨厌。", config: config, theme: .white)
         var cancelBlock: (() -> Void)?
+        
+        let action = AlertAction(title: "确认", handler: { action in
+            cancelBlock?()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.15, execute: DispatchWorkItem.init(block: {
+                let vc = UIViewController()
+                vc.view.backgroundColor = .blue
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
+        
+        })
         let action1 = AlertAction(title: "取消", handler: { _ in
             print("cancel()")
             cancelBlock?()
         })
+        action1.titleColor = 0x944AFF.color
+        action1.font = UIFont.boldSystemFont(ofSize: 16)
         
-        alert.addAction(action1)
-        let film = pin(alert)
+        alert.setActions([action, action1])
+        let film = pin(alert, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean), onView: nil)
         cancelBlock = { film.curtainCall() }
+    }
+    
+    @objc func showSheet() {
+        let sheet = Sheet(theme: .white)
+        var cancelBlock: (() -> Void)?
+        let action = AlertAction(title: "举报", handler: { action in
+            cancelBlock?()
+        })
+     
+        let action1 = AlertAction(title: "拉黑", handler: { _ in
+            cancelBlock?()
+        })
+        
+        let cancelAction = AlertAction(title: "取消", handler: { _ in
+            cancelBlock?()
+        })
+        cancelAction.titleColor = 0x944AFF.color
+        cancelAction.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        sheet.cancelAction = cancelAction
+        sheet.setActions([action, action1])
+        
+        let scenery = Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean)
+        var plot = Plot.default
+        plot.stagePisition = .bottom
+        
+        let appear = CATransition()
+        appear.duration = 0.25
+        appear.type = CATransitionType.moveIn
+        appear.subtype = .fromTop
+        plot.appearAnimation = appear
+        
+        let disappear = CABasicAnimation()
+        disappear.keyPath = "position.y"
+        disappear.duration = 0.25
+        disappear.toValue = UIScreen.main.bounds.size.height
+        plot.disappearAnimation = disappear
+        
+        plot.showTimeDuration = TimeInterval(Int.max)
+        let film = YourFilm_Example.show(sheet, plot: plot, scenery: scenery)
+        cancelBlock = { film.curtainCall() }
+    }
+    
+    @objc func showCustomView() {
+        let customView = UIView()
+        customView.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
+        customView.backgroundColor = .green
+        let plot = Plot.default
+        YourFilm_Example.show(customView, plot: plot, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean))
     }
 }
 

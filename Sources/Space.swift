@@ -9,10 +9,6 @@
 import UIKit
 
 class Space: UIView {
-    struct Metric {
-        static let estimateMargin = 15.f
-    }
-    
     var plot: Plot
     var stage: Stage
     var effect: SpaceEffectStyle
@@ -45,6 +41,8 @@ class Space: UIView {
         }
         
         addSubview(backgroundView)
+        stage.layer.cornerRadius = plot.stageCornerRadius
+        stage.layer.masksToBounds = true
         addSubview(stage)
     }
     
@@ -53,19 +51,12 @@ class Space: UIView {
     }
     
     override func updateConstraints() {
-        let isShowFull = self.frame == UIScreen.main.bounds
-        var top = isShowFull ? Metric.estimateMargin : 0
+        var top = 0.f
         top += plot.stageContentOffset.y
-        if #available(iOS 11.0, *) {
-            top += self.safeAreaInsets.top
-        }
         
-        var bottom = isShowFull ? -Metric.estimateMargin : 0
+        var bottom = 0.f
         bottom += plot.stageContentOffset.y
-        if #available(iOS 11.0, *) {
-            bottom -= self.safeAreaInsets.bottom
-        }
-        
+    
         stage.translatesAutoresizingMaskIntoConstraints = false
         switch plot.stagePisition {
         case .top:
@@ -79,13 +70,13 @@ class Space: UIView {
                 stage.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: plot.stageContentOffset.x)
             ])
         case .left:
-            let left = isShowFull ? Metric.estimateMargin : 0
+            let left = 0.f
             NSLayoutConstraint.activate([
                 stage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: plot.stageContentOffset.y),
                 stage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: left + plot.stageContentOffset.x)
             ])
         case .right:
-            let right = isShowFull ? -Metric.estimateMargin : 0
+            let right = 0.f
             NSLayoutConstraint.activate([
                 stage.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: plot.stageContentOffset.y),
                 stage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: right + plot.stageContentOffset.x)
