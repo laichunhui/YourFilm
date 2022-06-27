@@ -9,15 +9,27 @@
 import UIKit
 
 /// 演员类别
-public enum ActorClassify: Int {
+public enum ActorClassify: Hashable {
+    public typealias T = Any
+    
     case loading
     case hudText
     case alert
     case sheet
-    case other
-    
+    /// 继承UIview 的自定义视图都为此类型，根据类名区分
+    case other(T.Type)
+
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .other(let t):
+            hasher.combine("custom\(t.self)".hashValue)
+        default:
+            break
+        }
+    }
+
     public static func ==(lhs: ActorClassify, rhs: ActorClassify) -> Bool {
-        return lhs.rawValue == rhs.rawValue
+        return lhs.hashValue == rhs.hashValue
     }
 }
 
@@ -29,7 +41,6 @@ public protocol Actor {
     var animationLayer: CALayer? { get }
     var classify: ActorClassify { get }
 }
-
 
 public protocol FilmProgressDelegate {
     
@@ -46,7 +57,7 @@ extension UIView: Actor {
     }
     
     public var classify: ActorClassify {
-        return .other
+        return .other(Self.self)
     }
 }
 
@@ -282,7 +293,6 @@ open class Alert: Actor {
             }
         }
         
-        static let titleHeight: CGFloat = 30
         static let textFieldHeight: CGFloat = 40
         static let actionHeight: CGFloat = 54
     }
@@ -334,8 +344,9 @@ open class Alert: Actor {
         
         var lineY: CGFloat = 24
         
-        let titleHeight = title == nil ? CGFloat(0) : config.titleFont.lineHeight
+        let titleHeight = (title?.yf_size(titleFont: config.titleFont, maxWidth: width - 48).height) ?? 0
         let titleLable = UILabel()
+        titleLable.numberOfLines = 0
         titleLable.text = title
         titleLable.textAlignment = .center
         titleLable.textColor = theme == .black ? .white : 0x202530.color
@@ -349,7 +360,7 @@ open class Alert: Actor {
         
         let messageLable = UILabel()
         messageLable.text = message
-        messageLable.textAlignment = .center
+        messageLable.textAlignment = .left
         messageLable.font = config.textFont
         messageLable.numberOfLines = 0
         messageLable.textColor = theme == .black ? .white : 0x202530.color

@@ -133,10 +133,10 @@ class ViewController: UIViewController {
         var config = AlertConfig.default
         config.titleFont = UIFont.boldSystemFont(ofSize: 18)
         config.textFont = UIFont.systemFont(ofSize: 13)
-        let alert = Alert.init(title: "伤痛千万次", message: "那就这样吧，别离便去吧。发发呆反弹规范化发过火发给回复听光辉天誉花园 和太阳花一体化拖后腿好讨厌。", config: config, theme: .white)
+        let alert = Alert.init(title: "To see a world in a grain of sand", message: "To see a world in a grain of sand, And a heaven in a wild flower, Hold infinity in the palm of your hand, And eternity in an hour.", config: config, theme: .white)
         var cancelBlock: (() -> Void)?
         
-        let action = AlertAction(title: "确认", handler: { action in
+        let action = AlertAction(title: "Confirm", handler: { action in
             cancelBlock?()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.15, execute: DispatchWorkItem.init(block: {
                 let vc = UIViewController()
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
             }))
         
         })
-        let action1 = AlertAction(title: "取消", handler: { _ in
+        let action1 = AlertAction(title: "Cancel", handler: { _ in
             print("cancel()")
             cancelBlock?()
         })
@@ -247,3 +247,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
+class CustomView: UIView {
+ 
+}
+
+class CustomView2: UIView {
+ 
+}
