@@ -134,42 +134,44 @@ class ViewController: UIViewController {
         config.titleFont = UIFont.boldSystemFont(ofSize: 18)
         config.textFont = UIFont.systemFont(ofSize: 13)
         let alert = Alert.init(title: "To see a world in a grain of sand", message: "To see a world in a grain of sand, And a heaven in a wild flower, Hold infinity in the palm of your hand, And eternity in an hour.", config: config, theme: .white)
-        var cancelBlock: (() -> Void)?
+        let cancelBlock: (() -> Void) = {
+            YourFilm_Example.cleanFilms(with: .alert)
+        }
         
-        let action = AlertAction(title: "Confirm", handler: { action in
-            cancelBlock?()
+        let action = AlertAction(title: "Confirm", handler: {
+            cancelBlock()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.15, execute: DispatchWorkItem.init(block: {
                 let vc = UIViewController()
                 vc.view.backgroundColor = .blue
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
-        
         })
-        let action1 = AlertAction(title: "Cancel", handler: { _ in
+        var action1 = AlertAction(title: "Cancel", handler: {
             print("cancel()")
-            cancelBlock?()
+            cancelBlock()
         })
         action1.titleColor = 0x944AFF.color
         action1.font = UIFont.boldSystemFont(ofSize: 16)
         
         alert.setActions([action, action1])
-        let film = pin(alert, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean), onView: nil)
-        cancelBlock = { film.curtainCall() }
+        pin(alert, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean), onView: nil)
     }
     
     @objc func showSheet() {
         let sheet = Sheet(theme: .white)
-        var cancelBlock: (() -> Void)?
-        let action = AlertAction(title: "举报", handler: { action in
-            cancelBlock?()
+        let cancelBlock: (() -> Void) = {
+            YourFilm_Example.cleanFilms(with: .sheet)
+        }
+        let action = AlertAction(title: "举报", handler: {
+            cancelBlock()
         })
-     
-        let action1 = AlertAction(title: "拉黑", handler: { _ in
-            cancelBlock?()
+
+        let action1 = AlertAction(title: "拉黑", handler: {
+            cancelBlock()
         })
-        
-        let cancelAction = AlertAction(title: "取消", handler: { _ in
-            cancelBlock?()
+
+        var cancelAction = AlertAction(title: "取消", handler: {
+            cancelBlock()
         })
         cancelAction.titleColor = 0x944AFF.color
         cancelAction.font = UIFont.boldSystemFont(ofSize: 16)
@@ -186,20 +188,19 @@ class ViewController: UIViewController {
         appear.type = CATransitionType.moveIn
         appear.subtype = .fromTop
         plot.appearAnimation = appear
-        
+
         let disappear = CABasicAnimation()
         disappear.keyPath = "position.y"
         disappear.duration = 0.25
         disappear.toValue = UIScreen.main.bounds.size.height
         plot.disappearAnimation = disappear
-        
+
         plot.showTimeDuration = TimeInterval(Int.max)
-        let film = YourFilm_Example.show(sheet, plot: plot, scenery: scenery)
-        cancelBlock = { film.curtainCall() }
+        YourFilm_Example.show(sheet, plot: plot, scenery: scenery)
     }
     
     @objc func showCustomView() {
-        let customView = UIView()
+        let customView = CustomView()
         customView.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
         customView.backgroundColor = .green
         let plot = Plot.default
@@ -248,7 +249,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 class CustomView: UIView {
- 
+    deinit {
+        print("CustomView deinit")
+    }
 }
 
 class CustomView2: UIView {

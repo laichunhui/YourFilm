@@ -175,25 +175,25 @@ open class HUD: Actor {
 }
 
 // MARK: - Alert
-open class AlertAction: NSObject {
+public struct AlertAction {
     private var _title: String?
     
-    public init(title: String?, handler: ((AlertAction) -> Swift.Void)? = nil) {
+    public init(title: String?, handler: (() -> Swift.Void)? = nil) {
         _title = title
         _handler = handler
     }
     
-    open var isEnabled: Bool = true
+    public var isEnabled: Bool = true
     
-    open var backgroundColor: UIColor?
-    open var titleColor: UIColor?
-    open var font: UIFont = UIFont.systemFont(ofSize: 16)
+    public var backgroundColor: UIColor?
+    public var titleColor: UIColor?
+    public var font: UIFont = UIFont.systemFont(ofSize: 16)
     
-    open var title: String? {
+    public var title: String? {
         get { return _title }
     }
     
-    var _handler: ((AlertAction) -> Swift.Void)?
+    var _handler: (() -> Swift.Void)?
 }
 
 private class ActionControl: UIButton {
@@ -240,7 +240,7 @@ private class ActionControl: UIButton {
     
     @objc func performAction() {
         if let action = action {
-            action._handler?(action)
+            action._handler?()
         }
     }
 }

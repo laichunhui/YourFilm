@@ -14,6 +14,10 @@ open class Director {
     var currentFilm: Film?
     var films: [Film] = []
     
+    private init() {
+        
+    }
+    
     @discardableResult
     open func make(
         _ character: Actor,

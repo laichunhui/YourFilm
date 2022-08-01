@@ -60,7 +60,7 @@ open class Film: NSObject {
             character.animationLayer?.add(rolePlayAnimation, forKey: "rolePlayAnimation")
         }
         
-        let timeinterval =  plot.showTimeDuration - (plot.disappearAnimation?.duration ?? 0)
+        let timeinterval = plot.showTimeDuration - (plot.disappearAnimation?.duration ?? 0)
         endTimer?.invalidate()
         endTimer = Timer.scheduledTimer(timeInterval: timeinterval, target: self, selector: #selector(Film.curtainCall), userInfo: nil, repeats: false)
     }
@@ -80,6 +80,13 @@ open class Film: NSObject {
 
 extension Film: CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        endTimer?.invalidate()
+        endTimer = nil
+        plot.disappearAnimation?.delegate = nil
+        plot.disappearAnimation = nil
+        space.layer.removeAllAnimations()
+        space.stage.layer.removeAllAnimations()
+        character.animationLayer?.removeAllAnimations()
         space.clearUp()
         delegate?.filmDidEnd(self)
     }

@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias FilmAction = (Bool) -> Void
-
 enum FilmAnimation {
     case appearAnimation(_ : CAAnimation)
     case disappearAnimation(_ : CAAnimation)
