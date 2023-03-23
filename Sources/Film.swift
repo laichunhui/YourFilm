@@ -42,8 +42,10 @@ open class Film: NSObject {
         self.space = Space(plot: plot, effect: scenery.spaceEffect)
         
         super.init()
+        self.space.isUserInteractionEnabled = plot.isUserInteractionEnabled
         if plot.willCurtainWhenTapSpace {
             let tap = UITapGestureRecognizer(target: self, action: #selector(curtainCall))
+            tap.delegate = self
             self.space.addGestureRecognizer(tap)
         }
     }
@@ -89,5 +91,16 @@ extension Film: CAAnimationDelegate {
         character.animationLayer?.removeAllAnimations()
         space.clearUp()
         delegate?.filmDidEnd(self)
+    }
+}
+
+extension Film: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: space)
+        let point = space.stage.convert(location, from: space)
+        if point.x < 0 || point.y < 0 {
+            return true
+        }
+        return false
     }
 }

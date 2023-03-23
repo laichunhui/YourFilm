@@ -24,7 +24,11 @@ open class Director {
         plot: Plot = .default,
         scenery: Scenery = .default,
         onView view: UIView? = nil) -> Film {
- 
+        /// 如果是同类型内容, 在当前内容消失前不再创建新内容
+        if let currentFilm = currentFilm, currentFilm.character.classify == character.classify {
+            return currentFilm
+        }
+            
         let newfilm = Film(character: character, plot: plot, scenery: scenery)
         newfilm.delegate = self
         currentFilm = newfilm

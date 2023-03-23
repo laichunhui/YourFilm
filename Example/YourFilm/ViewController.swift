@@ -95,7 +95,11 @@ class ViewController: UIViewController {
 //        plot.stagePisition = .top
 //        plot.stageContentOffset = CGPoint(x: -15, y: 200)
 //        YourFilm_Example.show(view, plot: plot)
-        showActivityIndicator(onView: self.tableView)
+        for i in 0..<5 {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + (0.2 * Double(i))) {
+                showActivityIndicator(onView: self.tableView)
+            }
+        }
     }
     
     @objc func showProgress() {
@@ -203,7 +207,9 @@ class ViewController: UIViewController {
         let customView = CustomView()
         customView.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
         customView.backgroundColor = .green
-        let plot = Plot.default
+        var plot = Plot.default
+        plot.isUserInteractionEnabled = false
+        plot.showTimeDuration = 5.f
         YourFilm_Example.show(customView, plot: plot, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean))
     }
 }

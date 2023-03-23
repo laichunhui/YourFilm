@@ -40,6 +40,14 @@ public protocol Actor {
     var face: UIView { get }
     var animationLayer: CALayer? { get }
     var classify: ActorClassify { get }
+    /// 重力效应
+    var showMotionEffect: Bool { get }
+}
+
+public extension Actor {
+    var showMotionEffect: Bool {
+        return false
+    }
 }
 
 public protocol FilmProgressDelegate {
@@ -109,7 +117,7 @@ open class HUD: Actor {
         switch self.content {
         case .label(let text, let color, let font):
             
-            let textSize = text?.yf_size(titleFont: Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 80) ?? CGSize.zero
+            let textSize = text?.yf_size(titleFont: font ?? Metric.labelTextFont, maxWidth: UIScreen.main.bounds.width - 80) ?? CGSize.zero
             let height = min(Metric.maxContentHeight, max(textSize.height + Metric.edgePadding * 2, Metric.minContentHeight))
             face.frame.size = CGSize(width: textSize.width + Metric.edgePadding * 2, height: height)
             

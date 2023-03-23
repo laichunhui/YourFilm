@@ -30,19 +30,7 @@ class Stage: UIVisualEffectView {
     }
     
     fileprivate func commonInit() {
-        let offset = 20.0
-        let motionEffectsX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
-        motionEffectsX.maximumRelativeValue = offset
-        motionEffectsX.minimumRelativeValue = -offset
-        
-        let motionEffectsY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
-        motionEffectsY.maximumRelativeValue = offset
-        motionEffectsY.minimumRelativeValue = -offset
-        
-        let group = UIMotionEffectGroup()
-        group.motionEffects = [motionEffectsX, motionEffectsY]
-        
-        addMotionEffect(group)
+
     }
     
     func display(_ character: Actor, effect: StageEffectStyle) {
@@ -65,6 +53,22 @@ class Stage: UIVisualEffectView {
             self.contentView.backgroundColor = .clear
         }
         contentView.addSubview(character.face)
+        
+        if character.showMotionEffect {
+            let offset = 20.0
+            let motionEffectsX = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+            motionEffectsX.maximumRelativeValue = offset
+            motionEffectsX.minimumRelativeValue = -offset
+            
+            let motionEffectsY = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+            motionEffectsY.maximumRelativeValue = offset
+            motionEffectsY.minimumRelativeValue = -offset
+            
+            let group = UIMotionEffectGroup()
+            group.motionEffects = [motionEffectsX, motionEffectsY]
+            
+            addMotionEffect(group)
+        }
     }
     
     override func updateConstraints() {

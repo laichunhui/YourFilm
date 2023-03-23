@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "YourFilm"
-  spec.version      = "0.5.2"
+  spec.version      = "0.5.3"
   spec.summary      = "custom HUD, is YourFilm."
   spec.description  = <<-DESC 
   custom HUD, make toast more elegant, more multifunction, you 

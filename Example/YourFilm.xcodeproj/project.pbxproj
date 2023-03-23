@@ -247,9 +247,9 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = DR5K5LQ4UE;
+						DevelopmentTeam = 2J243WQ2HR;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -483,8 +483,9 @@
 			baseConfigurationReference = 8847FC1CF9D282A9BE560EC0 /* Pods-YourFilm_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = DR5K5LQ4UE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2J243WQ2HR;
 				INFOPLIST_FILE = YourFilm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -492,7 +493,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chutzpah.hotcourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4e03228b-79d4-4d2e-b764-7375216e229c";
-				PROVISIONING_PROFILE_SPECIFIER = hotCourseDev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 			};
