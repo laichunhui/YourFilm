@@ -28,6 +28,16 @@ loading效果<br/>  |  <img src="Resources/showLoading.gif" width="375" height="
 ### CocoaPods
 
 ```ruby
+dependencies: [
+    .package(url: "https://github.com/laichunhui/YourFilm.git", from: "0.5.0")
+]
+end
+```
+
+
+### CocoaPods
+
+```ruby
 target '<Your Target Name>' do
     pod 'YourFilm'
 end
