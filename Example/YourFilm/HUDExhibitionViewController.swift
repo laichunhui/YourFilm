@@ -1,6 +1,6 @@
 //
 //  HUDExhibitionViewController.swift
-//  YourFilm_Example
+//  YourFilm
 //
 //  Created by mac on 2018/8/24.
 //  Copyright © 2018年 CocoaPods. All rights reserved.
@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import YourFilm
+
 //fix
 class HUDExhibitionViewController: UIViewController {
     let controlPanel = UIScrollView().then {
@@ -113,7 +115,6 @@ class HUDExhibitionViewController: UIViewController {
         var scenery = Scenery()
         scenery.spaceEffect = .color(faceBgColorSelector.color)
         scenery.stageEffect = .color(stageBgColorSelector.color)
-    
-        YourFilm_Example.show(character, scenery: scenery, onView: view)
+        YourFilm.show(character, scenery: scenery, onView: view)
     }
 }

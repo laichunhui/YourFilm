@@ -34,7 +34,7 @@ extension CGFloat {
 
 extension Array {
     ///Element at the given index if it exists.
-    func yf_Element(at index: Int) -> Element? {
+    public func yf_Element(at index: Int) -> Element? {
         
         guard startIndex..<endIndex ~= index else { return nil }
         return self[index]

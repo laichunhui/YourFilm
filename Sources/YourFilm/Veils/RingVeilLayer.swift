@@ -1,6 +1,6 @@
 //
 //  RingVeilLayer.swift
-//  YourFilm_Example
+//  YourFilm
 //
 //  Created by chunhuiLai on 2020/5/19.
 //  Copyright © 2020 CocoaPods. All rights reserved.

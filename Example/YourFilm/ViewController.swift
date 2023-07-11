@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import YourFilm
 
 typealias MenuAction = (title: String, action: Selector)
 
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     }
     
     @objc func cleanAll() {
-        YourFilm_Example.cleanAllFilms()
+        YourFilm.cleanAllFilms()
     }
     
     func setupUI() {
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
         var scene = Scenery.default
         scene.stageEffect = .color(.white)
         scene.spaceEffect = .color(UIColor.black.withAlphaComponent(0.5))
-        YourFilm_Example.showLoading(image: image, title: "正在加载",scenery: scene, onView: self.view)
+        YourFilm.showLoading(image: image, title: "正在加载",scenery: scene, onView: self.view)
     }
     
     @objc func showActivity() {
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
 //        plot.showTimeDuration = TimeInterval(Int.max)
 //        plot.stagePisition = .top
 //        plot.stageContentOffset = CGPoint(x: -15, y: 200)
-//        YourFilm_Example.show(view, plot: plot)
+//        YourFilm.show(view, plot: plot)
         for i in 0..<5 {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + (0.2 * Double(i))) {
                 showActivityIndicator(onView: self.tableView)
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         var scene = Scenery.default
         scene.stageEffect = .color(.white)
         scene.spaceEffect = .color(UIColor.black.withAlphaComponent(0.5))
-        YourFilm_Example.pin(actor, scenery: scene, onView: self.tableView)
+        YourFilm.pin(actor, scenery: scene, onView: self.tableView)
 
         if #available(iOS 10.0, *) {
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (_) in
@@ -139,7 +139,7 @@ class ViewController: UIViewController {
         config.textFont = UIFont.systemFont(ofSize: 13)
         let alert = Alert.init(title: "To see a world in a grain of sand", message: "To see a world in a grain of sand, And a heaven in a wild flower, Hold infinity in the palm of your hand, And eternity in an hour.", config: config, theme: .white)
         let cancelBlock: (() -> Void) = {
-            YourFilm_Example.cleanFilms(with: .alert)
+            YourFilm.cleanFilms(with: .alert)
         }
         
         let action = AlertAction(title: "Confirm", handler: {
@@ -164,26 +164,25 @@ class ViewController: UIViewController {
     @objc func showSheet() {
         let sheet = Sheet(theme: .white)
         let cancelBlock: (() -> Void) = {
-            YourFilm_Example.cleanFilms(with: .sheet)
+            YourFilm.cleanFilms(with: .sheet)
         }
-        let action = AlertAction(title: "举报", handler: {
+        var action = AlertAction(title: "举报", handler: {
             cancelBlock()
         })
-
-        let action1 = AlertAction(title: "拉黑", handler: {
+        action.titleColor = UIColor(white: 1, alpha: 0.8)
+        var action1 = AlertAction(title: "拉黑", handler: {
             cancelBlock()
         })
-
+        action1.titleColor = UIColor(white: 1, alpha: 0.8)
         var cancelAction = AlertAction(title: "取消", handler: {
             cancelBlock()
         })
-        cancelAction.titleColor = 0x944AFF.color
+        cancelAction.titleColor = UIColor(white: 1, alpha: 0.8)
         cancelAction.font = UIFont.boldSystemFont(ofSize: 16)
-        
         sheet.cancelAction = cancelAction
         sheet.setActions([action, action1])
         
-        let scenery = Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean)
+        let scenery = Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.8)), stageEffect: .clean)
         var plot = Plot.default
         plot.stagePisition = .bottom
         
@@ -200,7 +199,7 @@ class ViewController: UIViewController {
         plot.disappearAnimation = disappear
 
         plot.showTimeDuration = TimeInterval(Int.max)
-        YourFilm_Example.show(sheet, plot: plot, scenery: scenery)
+        YourFilm.show(sheet, plot: plot, scenery: scenery)
     }
     
     @objc func showCustomView() {
@@ -210,7 +209,7 @@ class ViewController: UIViewController {
         var plot = Plot.default
         plot.isUserInteractionEnabled = false
         plot.showTimeDuration = 5.f
-        YourFilm_Example.show(customView, plot: plot, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean))
+        YourFilm.show(customView, plot: plot, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean))
     }
 }
 

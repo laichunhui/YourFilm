@@ -1,6 +1,6 @@
 //
 //  Animations.swift
-//  YourFilm_Example
+//  YourFilm
 //
 //  Created by laichunhui on 2019/1/24.
 //  Copyright © 2019 CocoaPods. All rights reserved.

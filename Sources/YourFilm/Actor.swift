@@ -216,7 +216,7 @@ private class ActionControl: UIButton {
         self.action = action
         
         let titleColor = action.titleColor ?? 0x202530.color
-        backgroundColor = action.backgroundColor ?? 0xFFFFFF.color
+        backgroundColor = action.backgroundColor ?? .clear
         titleLabel?.font = action.font
         setTitleColor(titleColor, for: .normal)
         
@@ -447,7 +447,7 @@ open class Sheet: Actor {
             case .white:
                 return .white
             case .black:
-                return 0x3B3D3F.color
+                return 0x1E222E.color
             }
         }
         
@@ -456,7 +456,16 @@ open class Sheet: Actor {
             case .white:
                 return 0xE9EBEF.color
             case .black:
-                return .white
+                return 0x2B3145.color
+            }
+        }
+        
+        static func sepColor(with theme: Theme) -> UIColor {
+            switch theme {
+            case .white:
+                return 0xE9EBEF.color
+            case .black:
+                return 0x12151F.color
             }
         }
         static let actionHeight: CGFloat = 54
@@ -488,7 +497,7 @@ open class Sheet: Actor {
         contentView.subviews.forEach { $0.removeFromSuperview() }
         contentView.backgroundColor = Metric.backgroundColor(with: theme)
         let width = UIScreen.main.bounds.width
-        var lineY: CGFloat = 9
+        var lineY: CGFloat = 0
         
         for (i, action) in actions.enumerated() {
             if i > 0 {
@@ -507,7 +516,7 @@ open class Sheet: Actor {
         
         if let cancel = cancelAction {
             let line = UIView()
-            line.backgroundColor = Metric.lineColor(with: theme)
+            line.backgroundColor = Metric.sepColor(with: theme)
             contentView.addSubview(line)
             line.frame = CGRect.init(x: 0, y: lineY, width: width, height: 12)
             lineY += 12

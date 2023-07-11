@@ -1,7 +1,7 @@
 
 use_frameworks!
 
-target 'YourFilm_Example' do
+target 'YourFilm' do
 
     pod 'SnapKit'
     pod 'Then'
