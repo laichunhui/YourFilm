@@ -254,9 +254,9 @@ private class ActionControl: UIButton {
 }
 
 public struct AlertConfig {
-    public var titleFont = UIFont.boldSystemFont(ofSize: 16)
-    public var textFont = UIFont.systemFont(ofSize: 14)
-    public var contentWidth = UIScreen.main.bounds.width - 60
+    public var titleFont = UIFont.boldSystemFont(ofSize: 18)
+    public var textFont = UIFont.systemFont(ofSize: 16)
+    public var contentWidth = UIScreen.main.bounds.width - 40
     
     public static let `default`: AlertConfig = {
         let config = AlertConfig()
@@ -302,7 +302,7 @@ open class Alert: Actor {
         }
         
         static let textFieldHeight: CGFloat = 40
-        static let actionHeight: CGFloat = 54
+        static let actionHeight: CGFloat = 44
     }
     
     private let contentView = UIView()
@@ -362,8 +362,8 @@ open class Alert: Actor {
         titleLable.frame = CGRect(x: 24, y: lineY, width: width-48, height: titleHeight)
         
         contentView.addSubview(titleLable)
-        if let _ = title {
-            lineY += titleHeight + 15
+        if !(title?.isEmpty ?? true) {
+            lineY += titleHeight + 24
         }
         
         let messageLable = UILabel()
@@ -375,13 +375,13 @@ open class Alert: Actor {
         messageLable.frame = CGRect.init(x: 24, y: lineY, width: width-48, height: messageHeight)
         
         contentView.addSubview(messageLable)
-        lineY += messageHeight + 18
+        lineY += messageHeight + 32
         
         let line = UIView()
         line.backgroundColor = Metric.lineColor(with: theme)
         contentView.addSubview(line)
-        line.frame = CGRect.init(x: 0, y: lineY, width: width, height: 1)
-        lineY += 1
+        line.frame = CGRect.init(x: 16, y: lineY, width: width - 32, height: 0.5)
+        lineY += 0.5
         
         textFields?.forEach({ (field) in
             field.frame = CGRect.init(x: 10, y: lineY, width: width-20, height: Metric.textFieldHeight)
@@ -392,7 +392,7 @@ open class Alert: Actor {
         if actions.count == 2 {
             for (i, action) in actions.enumerated() {
                 let actionButton = ActionControl(action: action)
-                let actionWidth = width / 2 - 1
+                let actionWidth = width / 2 - 0.5
                 let x = i == 0 ? actionWidth * CGFloat(i) : actionWidth * CGFloat(i) + 1
                 actionButton.frame = CGRect.init(x: x, y: lineY, width: actionWidth, height: Metric.actionHeight)
                 contentView.addSubview(actionButton)
@@ -401,7 +401,7 @@ open class Alert: Actor {
                     let line = UIView()
                     line.backgroundColor = Metric.lineColor(with: theme)
                     contentView.addSubview(line)
-                    line.frame = CGRect.init(x: actionWidth, y: lineY, width: 1, height: Metric.actionHeight)
+                    line.frame = CGRect.init(x: actionWidth, y: lineY, width: 0.5, height: Metric.actionHeight)
                 }
             }
             lineY += Metric.actionHeight

@@ -136,13 +136,13 @@ class ViewController: UIViewController {
     @objc func showAlert() {
         var config = AlertConfig.default
         config.titleFont = UIFont.boldSystemFont(ofSize: 18)
-        config.textFont = UIFont.systemFont(ofSize: 13)
+        config.textFont = UIFont.systemFont(ofSize: 16)
         let alert = Alert.init(title: "To see a world in a grain of sand", message: "To see a world in a grain of sand, And a heaven in a wild flower, Hold infinity in the palm of your hand, And eternity in an hour.", config: config, theme: .white)
         let cancelBlock: (() -> Void) = {
             YourFilm.cleanFilms(with: .alert)
         }
         
-        let action = AlertAction(title: "Confirm", handler: {
+        var action = AlertAction(title: "Confirm", handler: {
             cancelBlock()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.15, execute: DispatchWorkItem.init(block: {
                 let vc = UIViewController()
@@ -150,12 +150,14 @@ class ViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
         })
+        action.titleColor = 0x5DCE7A.color
+        action.font = UIFont.boldSystemFont(ofSize: 16)
         var action1 = AlertAction(title: "Cancel", handler: {
             print("cancel()")
             cancelBlock()
         })
-        action1.titleColor = 0x944AFF.color
-        action1.font = UIFont.boldSystemFont(ofSize: 16)
+        action1.titleColor = 0x111111.color.withAlphaComponent(0.5)
+        action1.font = UIFont.systemFont(ofSize: 16)
         
         alert.setActions([action, action1])
         pin(alert, scenery: Scenery.init(spaceEffect: SpaceEffectStyle.color(UIColor.black.withAlphaComponent(0.5)), stageEffect: .clean), onView: nil)
