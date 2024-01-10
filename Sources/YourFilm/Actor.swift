@@ -256,6 +256,8 @@ private class ActionControl: UIButton {
 public struct AlertConfig {
     public var titleFont = UIFont.boldSystemFont(ofSize: 18)
     public var textFont = UIFont.systemFont(ofSize: 16)
+    public var titleColor = 0x111111.color
+    public var textColor = 0x111111.color
     public var contentWidth = UIScreen.main.bounds.width - 40
     
     public static let `default`: AlertConfig = {
@@ -295,13 +297,14 @@ open class Alert: Actor {
         static func lineColor(with theme: Theme) -> UIColor {
             switch theme {
             case .white:
-                return 0xE9EBEF.color
+                return UIColor(white: 0, alpha: 0.1)
             case .black:
                 return .white
             }
         }
         
         static let textFieldHeight: CGFloat = 40
+        static let maxtTextHeight: CGFloat = 150
         static let actionHeight: CGFloat = 44
     }
     
@@ -357,7 +360,7 @@ open class Alert: Actor {
         titleLable.numberOfLines = 0
         titleLable.text = title
         titleLable.textAlignment = .center
-        titleLable.textColor = theme == .black ? .white : 0x202530.color
+        titleLable.textColor = config.titleColor
         titleLable.font = config.titleFont
         titleLable.frame = CGRect(x: 24, y: lineY, width: width-48, height: titleHeight)
         
@@ -366,16 +369,21 @@ open class Alert: Actor {
             lineY += titleHeight + 24
         }
         
-        let messageLable = UILabel()
+        let messageLable = UITextView() // UILabel()
         messageLable.text = message
         messageLable.textAlignment = .left
+        messageLable.backgroundColor = .clear
         messageLable.font = config.textFont
-        messageLable.numberOfLines = 0
-        messageLable.textColor = theme == .black ? .white : 0x202530.color
-        messageLable.frame = CGRect.init(x: 24, y: lineY, width: width-48, height: messageHeight)
+        messageLable.showsVerticalScrollIndicator = false
+        messageLable.isEditable = false
+        messageLable.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        messageLable.numberOfLines = 0
+        messageLable.textColor = config.textColor
+        messageLable.isScrollEnabled = messageHeight > Metric.maxtTextHeight
+        messageLable.frame = CGRect.init(x: 24, y: lineY, width: width-48, height: min(messageHeight, Metric.maxtTextHeight))
         
         contentView.addSubview(messageLable)
-        lineY += messageHeight + 32
+        lineY += min(messageHeight, Metric.maxtTextHeight) + 32
         
         let line = UIView()
         line.backgroundColor = Metric.lineColor(with: theme)

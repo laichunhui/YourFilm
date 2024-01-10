@@ -137,7 +137,14 @@ class ViewController: UIViewController {
         var config = AlertConfig.default
         config.titleFont = UIFont.boldSystemFont(ofSize: 18)
         config.textFont = UIFont.systemFont(ofSize: 16)
-        let alert = Alert.init(title: "To see a world in a grain of sand", message: "To see a world in a grain of sand, And a heaven in a wild flower, Hold infinity in the palm of your hand, And eternity in an hour.", config: config, theme: .white)
+        let alert = Alert.init(title: "To see a world in a grain of sand",
+                               message:
+                                """
+                                1. The ranking list is the ranking of cummulative golds consumption of all Gold games
+                                2. The dayliy list is calculated based on the cumulative gold consumed in all Gold Games in the past 7 days.
+                                3. The weekly list is calculated based on the cumulative gold consumption of all Gold Games in the past 7 days.
+                                """,
+                               config: config, theme: .white)
         let cancelBlock: (() -> Void) = {
             YourFilm.cleanFilms(with: .alert)
         }
